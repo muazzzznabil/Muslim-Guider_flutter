@@ -16,20 +16,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return  Scaffold(
     appBar: appBar(),
-      body: Column(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 30,),
-          prayerTimeWidget(),
-          SizedBox(height: 30,),
-          tasbihCounterWidget(),
-          SizedBox(height: 30,),
-          mosqueLocatorWidget()
-
-
-
+          Column(
+            children: [
+              SizedBox(height: 30,),
+              prayerTimeWidget(),
+              SizedBox(height: 30,),
+              tasbihCounterWidget(),
+              SizedBox(height: 30,),
+              mosqueLocatorWidget()
+            ],
+          ),
         ],
       ),
-
     );
   }
 
@@ -90,23 +91,27 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  AppBar appBar() {
+  AppBar appBar() { //KIV
     return AppBar(
-    backgroundColor: Color(0xff79BB88),
-    //   backgroundColor: LinearGradient(
-    //     begin: Alignment.topCenter,
-    //     end: Alignment.bottomCenter,
-    //     colors: [
-    //       Color(0xff37553E),
-    //       Color(0xff5f936B),
-    //       Color(0xff79BB88)
-    //     ],
-    //   ),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        bottom: Radius.circular(10)
-      )
-    ),
+      flexibleSpace: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text('1 Muharram\n1435H'),
+        ),
+        height: 250,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xff37553E),
+              Color(0xff5f936B),
+              Color(0xff79BB88)
+            ],
+          ),
+          borderRadius: BorderRadius.only( bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10))
+        ),
+      ),
   );
   }
 }
