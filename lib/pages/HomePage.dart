@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:muslim_guider_v1/pages/mosqueLocator.dart';
 import 'package:muslim_guider_v1/pages/tasbihCounter.dart';
 
@@ -195,7 +198,9 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(top: 23,bottom: 15.0),
                       child: Row(
                         children: [
+                          // SvgPicture.asset('assets/icons/map-pin-white.svg',width: 15,),
                           SvgPicture.asset('assets/icons/map-pin-white.svg',width: 15,),
+
                           Text(
                               'Kuala Terengganu',
                             style: TextStyle(
@@ -251,12 +256,28 @@ class _HomePageState extends State<HomePage> {
         height: 100,
         width: 300,
         decoration: BoxDecoration(
-            color: Colors.orange,
-            borderRadius: BorderRadius.circular(20)
+            image: DecorationImage(
+                image: AssetImage('assets/background/background2.png'),
+                fit: BoxFit.cover
+            ),
+          color: Colors.green,
+          borderRadius: BorderRadius.circular(20)
         ),
-        child: const Center(
-          child: Text('Tasbih Counter'),
-        ),
+        child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SvgPicture.asset('assets/icons/tasbih2.svg',width: 55,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Tasbih Counter'),
+                Text('Resume Your Zikr')
+              ],
+            ),
+            Text('6572')
+          ],
+        )
       ),
     );
   }
@@ -270,6 +291,7 @@ class _HomePageState extends State<HomePage> {
         height: 100,
         width: 300,
         decoration: BoxDecoration(
+
             color: Colors.yellow,
             borderRadius: BorderRadius.circular(20)
         ),
