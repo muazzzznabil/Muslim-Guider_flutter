@@ -1,6 +1,9 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:muslim_guider_v1/pages/mosqueLocator.dart';
 import 'package:muslim_guider_v1/pages/tasbihCounter.dart';
 
@@ -26,7 +29,8 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 30,),
               tasbihCounterWidget(),
               SizedBox(height: 30,),
-              mosqueLocatorWidget()
+              mosqueLocatorWidget(),
+
             ],
           ),
         ],
@@ -43,30 +47,171 @@ class _HomePageState extends State<HomePage> {
         height: 200,
         width: 300,
         decoration: BoxDecoration(
-          color: Colors.blue,
+          // color: Colors.blue,
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff73ABA9),
+                Color(0xff628E8B),
+                Color(0xff203935).withOpacity(0.94)
+              ],
+            ),
           borderRadius: BorderRadius.circular(20)
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      child: Column(
-                        children: [
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
 
-                        ],
+                          children: [
+                            Text.rich( //Now Zuhr
+                           textAlign: TextAlign.start,
+                              TextSpan(
+                                text: 'Now : ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w200,
+                                  color: Color(0xffF5F2F2),
+
+                                  shadows: [
+                                    Shadow(
+                                        color: Colors.black.withOpacity(0.25),
+                                        blurRadius: 10,
+                                        offset: Offset(0,4)
+                                    )
+                                  ]
+                                ),
+                                children: <InlineSpan>[
+                                  TextSpan(
+                                  text: 'Zuhr',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                    )
+                                )
+                                ]
+                              )
+                            ),
+
+                            Text.rich( // 12:08 PM
+                                TextSpan(
+                                    text: '12:08 ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xffF5F2F2),
+                                        fontSize: 28,
+                                        shadows: [
+                                          Shadow(
+                                              color: Colors.black.withOpacity(0.25),
+                                              blurRadius: 10,
+                                              offset: Offset(0,4)
+                                          )
+                                        ]
+                                    ),
+                                    children: <InlineSpan>[
+                                      TextSpan(
+                                          text: 'PM',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w200,
+                                            fontSize: 18
+                                          )
+                                      )
+                                    ]
+                                )
+                            ),
+
+                            Text.rich( //Next : Asr
+                                TextSpan(
+                                    text: 'Next : ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w200,
+                                        color: Color(0xffF5F2F2),
+                                        shadows: [
+                                          Shadow(
+                                              color: Colors.black.withOpacity(0.25),
+                                              blurRadius: 10,
+                                              offset: Offset(0,4)
+                                          )
+                                        ]
+                                    ),
+                                    children: <InlineSpan>[
+                                      TextSpan(
+                                          text: 'Asr',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                          )
+                                      )
+                                    ]
+                                )
+                            ),
+
+                            Text.rich( // 04:08 PM
+                                TextSpan(
+                                    text: '04:08 ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xffF5F2F2),
+                                        fontSize: 21,
+                                        shadows: [
+                                          Shadow(
+                                              color: Colors.black.withOpacity(0.25),
+                                              blurRadius: 10,
+                                              offset: Offset(0,4)
+                                          )
+                                        ]
+                                    ),
+                                    children: <InlineSpan>[
+                                      TextSpan(
+                                          text: 'PM',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w200,
+                                              fontSize: 11
+                                          )
+                                      )
+                                    ]
+                                )
+                            ),
+                          ],
+                        ),
                       ),
                     )
                   ],
                 ),
                 Column(
+                  // crossAxisAlignment: CrossAxisAlignment.end,
 
-                )
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 23,bottom: 15.0),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/icons/map-pin-white.svg',width: 15,),
+                          Text(
+                              'Kuala Terengganu',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Color(0xffF5F2F2)
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    // SizedBox(height: 38,),
+                    SvgPicture.asset('assets/icons/mosque-islam1.svg')
+                  ],
+                ),
+                SizedBox()
               ],
-
             ),
             Container(
               width: double.infinity,
