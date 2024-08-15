@@ -56,9 +56,7 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       child: Column(
                         children: [
-                          Text.rich(
 
-                          )
                         ],
                       ),
                     )

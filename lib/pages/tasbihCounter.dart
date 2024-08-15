@@ -15,7 +15,7 @@ class _tasbihCounterState extends State<tasbihCounter> {
     return Scaffold(
       backgroundColor: Color(0xff699b7f),
       appBar: appBar(),
-      body: Column(
+      body: ListView(
         children: [
           Container(
             child: Column(
