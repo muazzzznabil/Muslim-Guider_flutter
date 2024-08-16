@@ -1,8 +1,7 @@
-
-
-
 import 'dart:ui';
 
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,17 +16,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  double widgetWidth ()=> MediaQuery.of(context).size.width*0.9;
+  double widgetWidth() => MediaQuery.of(context).size.width * 0.9;
 
   @override
   Widget build(BuildContext context) {
-
-    return  Scaffold(
-    appBar:PreferredSize(
-      preferredSize: Size.fromHeight(100.00),
-      child:appBar(),
-    ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100.00),
+        child: appBar(),
+      ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -39,14 +36,33 @@ class _HomePageState extends State<HomePage> {
               tasbihCounterWidget(),
               SizedBox(height: 30,),
               mosqueLocatorWidget(),
-
             ],
           ),
         ],
       ),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Color(0xff426567),
+        items: [
+          CurvedNavigationBarItem(
+              child: Icon(Icons.home_rounded),
+              label: 'Homepage'
+          ),
+          CurvedNavigationBarItem(
+              child: Icon(Icons.settings),
+              label: 'Settings'
+          ),
+          CurvedNavigationBarItem(
+              child: Icon(Icons.help_outline),
+              label: 'About'
+          )
+        ],
+        // onTap: (index),
+
+      ),
+      
+
     );
   }
-
 
   GestureDetector prayerTimeWidget() {
     // double widgetWidth = MediaQuery.of(context).size.width*0.9;
@@ -58,7 +74,7 @@ class _HomePageState extends State<HomePage> {
         height: 200,
         width: widgetWidth(),
         decoration: BoxDecoration(
-          // color: Colors.blue,
+            // color: Colors.blue,
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -68,8 +84,7 @@ class _HomePageState extends State<HomePage> {
                 Color(0xff203935).withOpacity(0.94)
               ],
             ),
-          borderRadius: BorderRadius.circular(20)
-        ),
+            borderRadius: BorderRadius.circular(20)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -89,35 +104,30 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(right: 26.0),
-                              child: Text.rich( //Now Zuhr
-                                                         textAlign: TextAlign.start,
-                                TextSpan(
-                                  text: 'Now : ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    color: Color(0xffF5F2F2),
-
-                                    shadows: [
-                                      Shadow(
-                                          color: Colors.black.withOpacity(0.25),
-                                          blurRadius: 10,
-                                          offset: Offset(4,4)
-                                      )
-                                    ]
-                                  ),
-                                  children: <InlineSpan>[
-                                    TextSpan(
-                                    text: 'Zuhr',
+                              child: Text.rich(
+                                  //Now Zuhr
+                                  textAlign: TextAlign.start,
+                                  TextSpan(
+                                      text: 'Now : ',
                                       style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                      )
-                                  )
-                                  ]
-                                )
-                              ),
+                                          fontWeight: FontWeight.w200,
+                                          color: Color(0xffF5F2F2),
+                                          shadows: [
+                                            Shadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.25),
+                                                blurRadius: 10,
+                                                offset: Offset(4, 4))
+                                          ]),
+                                      children: <InlineSpan>[
+                                        TextSpan(
+                                            text: 'Zuhr',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                            ))
+                                      ])),
                             ),
-
-                            Text.rich( // 12:08 PM
+                            Text.rich(// 12:08 PM
                                 TextSpan(
                                     text: '12:08 ',
                                     style: TextStyle(
@@ -126,27 +136,21 @@ class _HomePageState extends State<HomePage> {
                                         fontSize: 28,
                                         shadows: [
                                           Shadow(
-                                              color: Colors.black.withOpacity(0.25),
+                                              color: Colors.black
+                                                  .withOpacity(0.25),
                                               blurRadius: 10,
-                                              offset: Offset(4,4)
-                                          )
-                                        ]
-                                    ),
+                                              offset: Offset(4, 4))
+                                        ]),
                                     children: <InlineSpan>[
-                                      TextSpan(
-                                          text: 'PM',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w200,
-                                            fontSize: 18
-                                          )
-                                      )
-                                    ]
-                                )
-                            ),
-
+                                  TextSpan(
+                                      text: 'PM',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w200,
+                                          fontSize: 18))
+                                ])),
                             Padding(
                               padding: const EdgeInsets.only(right: 30.0),
-                              child: Text.rich( //Next : Asr
+                              child: Text.rich(//Next : Asr
                                   TextSpan(
                                       text: 'Next : ',
                                       style: TextStyle(
@@ -154,27 +158,22 @@ class _HomePageState extends State<HomePage> {
                                           color: Color(0xffF5F2F2),
                                           shadows: [
                                             Shadow(
-                                                color: Colors.black.withOpacity(0.25),
+                                                color: Colors.black
+                                                    .withOpacity(0.25),
                                                 blurRadius: 10,
-                                                offset: Offset(4,4)
-                                            )
-                                          ]
-                                      ),
+                                                offset: Offset(4, 4))
+                                          ]),
                                       children: <InlineSpan>[
-                                        TextSpan(
-                                            text: 'Asr',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                            )
-                                        )
-                                      ]
-                                  )
-                              ),
+                                    TextSpan(
+                                        text: 'Asr',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                        ))
+                                  ])),
                             ),
-
                             Padding(
                               padding: const EdgeInsets.only(right: 15.0),
-                              child: Text.rich( // 04:08 PM
+                              child: Text.rich(// 04:08 PM
                                   TextSpan(
                                       text: '04:08 ',
                                       style: TextStyle(
@@ -183,23 +182,18 @@ class _HomePageState extends State<HomePage> {
                                           fontSize: 21,
                                           shadows: [
                                             Shadow(
-                                                color: Colors.black.withOpacity(0.25),
+                                                color: Colors.black
+                                                    .withOpacity(0.25),
                                                 blurRadius: 10,
-                                                offset: Offset(4,4)
-                                            )
-                                          ]
-                                      ),
+                                                offset: Offset(4, 4))
+                                          ]),
                                       children: <InlineSpan>[
-                                        TextSpan(
-                                            text: 'PM',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w200,
-                                                fontSize: 11
-                                            )
-                                        )
-                                      ]
-                                  )
-                              ),
+                                    TextSpan(
+                                        text: 'PM',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w200,
+                                            fontSize: 11))
+                                  ])),
                             ),
                           ],
                         ),
@@ -212,18 +206,19 @@ class _HomePageState extends State<HomePage> {
 
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 23,bottom: 15.0),
+                      padding: const EdgeInsets.only(top: 23, bottom: 15.0),
                       child: Row(
                         children: [
                           // SvgPicture.asset('assets/icons/map-pin-white.svg',width: 15,),
-                          SvgPicture.asset('assets/icons/map-pin-white.svg',width: 15,),
+                          SvgPicture.asset(
+                            'assets/icons/map-pin-white.svg',
+                            width: 15,
+                          ),
 
                           Text(
-                              'Kuala Terengganu',
+                            'Kuala Terengganu',
                             style: TextStyle(
-                              fontSize: 10,
-                              color: Color(0xffF5F2F2)
-                            ),
+                                fontSize: 10, color: Color(0xffF5F2F2)),
                           )
                         ],
                       ),
@@ -241,22 +236,19 @@ class _HomePageState extends State<HomePage> {
               child: Center(
                 child: Text(
                   'See Prayer Times',
-                  style: TextStyle(
-                    color: Colors.white,
-                      shadows: [
-                        Shadow(
-                            color: Colors.black.withOpacity(0.25),
-                            blurRadius: 10,
-                            offset: Offset(4,4)
-                        )
-                      ]
-                  ),
+                  style: TextStyle(color: Colors.white, shadows: [
+                    Shadow(
+                        color: Colors.black.withOpacity(0.25),
+                        blurRadius: 10,
+                        offset: Offset(4, 4))
+                  ]),
                 ),
               ),
               decoration: BoxDecoration(
-                color: Color(0xff4c787e),
-                borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20))
-              ),
+                  color: Color(0xff4c787e),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20))),
             )
           ],
         ),
@@ -270,106 +262,106 @@ class _HomePageState extends State<HomePage> {
         Navigator.pushNamed(context, '/tasbihCounter');
       },
       child: Container(
-        height: 100,
-        width: widgetWidth(),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/background/background2.png'),
-                fit: BoxFit.cover
-            ),
-          color: Colors.green,
-          borderRadius: BorderRadius.circular(20)
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  SvgPicture.asset('assets/icons/tasbih2.svg',width: 55,),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Tasbih Counter',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18
+          height: 100,
+          width: widgetWidth(),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/background/background2.png'),
+                  fit: BoxFit.cover),
+              color: Colors.green,
+              borderRadius: BorderRadius.circular(20)),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/tasbih2.svg',
+                      width: 55,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Tasbih Counter',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: Text(
-                            'Resume Your Zikr',
-                            style: TextStyle(
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: Text('Resume Your Zikr',
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w200,
-                              fontSize: 14,
-
-                            )
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  VerticalDivider(width: 8,thickness: 2,color: Colors.white,),
-                  ShaderMask(
-                    blendMode: BlendMode.srcIn,shaderCallback: (bounds) => LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xffFFFFFF),
-                      Color(0xffFEF0D7),
-                      Color(0xffF7A719),
-                      Color(0xffF7A719),
-                    ],
-                  ).createShader(
-                    Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-                  ),
-                    child: Text(
-                      '6572',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black, // Use a base color (white is recommended)
-                          shadows: [
-                            Shadow(
-                                color: Colors.black.withOpacity(0.25),
-                                blurRadius: 20,
-                                offset: Offset(4,4)
-                            )
-                          ]
-                      ),
+                                fontSize: 14,
+                              )),
+                        )
+                      ],
                     ),
-                  )
+                  ],
+                ),
+                Row(
+                  children: [
+                    VerticalDivider(
+                      width: 8,
+                      thickness: 2,
+                      color: Colors.white,
+                    ),
+                    ShaderMask(
+                      blendMode: BlendMode.srcIn,
+                      shaderCallback: (bounds) => LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xffFFFFFF),
+                          Color(0xffFEF0D7),
+                          Color(0xffF7A719),
+                          Color(0xffF7A719),
+                        ],
+                      ).createShader(
+                        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                      ),
+                      child: Text(
+                        '6572',
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                            color: Colors
+                                .black, // Use a base color (white is recommended)
+                            shadows: [
+                              Shadow(
+                                  color: Colors.black.withOpacity(0.25),
+                                  blurRadius: 20,
+                                  offset: Offset(4, 4))
+                            ]),
+                      ),
+                    )
 
-                  // Text(
-                  //     '6572',
-                  //   style: TextStyle(
-                  //     fontSize: 30,
-                  //     fontWeight: FontWeight.w600,
-                  //     color: Gradient.linear(
-                  //         Offset.fromDirection(20),
-                  //         Offset.fromDirection(10),
-                  //         colors:[
-                  //           Color(0xffFEF0D7),
-                  //           Color(0xffF7A719)
-                  //         ]
-                  //     )
-                  //   ),
-                  // ),
-                ],
-              )
-            ],
-          ),
-        )
-      ),
+                    // Text(
+                    //     '6572',
+                    //   style: TextStyle(
+                    //     fontSize: 30,
+                    //     fontWeight: FontWeight.w600,
+                    //     color: Gradient.linear(
+                    //         Offset.fromDirection(20),
+                    //         Offset.fromDirection(10),
+                    //         colors:[
+                    //           Color(0xffFEF0D7),
+                    //           Color(0xffF7A719)
+                    //         ]
+                    //     )
+                    //   ),
+                    // ),
+                  ],
+                )
+              ],
+            ),
+          )),
     );
   }
 
@@ -382,106 +374,127 @@ class _HomePageState extends State<HomePage> {
         height: 100,
         width: widgetWidth(),
         decoration: BoxDecoration(
-
-            color: Colors.yellow,
-            borderRadius: BorderRadius.circular(20)
-        ),
-        child: Row(
-         children: [
-           Column(),
-           SvgPicture.asset('assets/icons/mosque-islam2.svg')
-         ],
+            image: DecorationImage(
+                image: AssetImage('assets/background/background3.png'),
+                fit: BoxFit.cover),
+            // color: Colors.yellow,
+            borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 10.0, left: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Mosque Locator',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        fontSize: 20,
+                        shadows: [
+                          Shadow(
+                              color: Colors.black.withOpacity(0.25),
+                              blurRadius: 10,
+                              offset: Offset(4, 4))
+                        ]),
+                  ),
+                  Text(
+                    'Find Nearest Mosque',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300,
+                        fontSize: 13,
+                        shadows: [
+                          Shadow(
+                              color: Colors.black.withOpacity(0.25),
+                              blurRadius: 10,
+                              offset: Offset(4, 4))
+                        ]),
+                  )
+                ],
+              ),
+              SvgPicture.asset('assets/icons/mosque-islam2.svg')
+            ],
+          ),
         ),
       ),
     );
   }
 
-  AppBar appBar() { //KIV
+  AppBar appBar() {
+    //KIV
     return AppBar(
       flexibleSpace: Container(
+        height: 250,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff37553E).withOpacity(0.9),
+                Color(0xff5f936B),
+                Color(0xff79BB88)
+              ],
+            ),
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 25.0,top: 25),
+              padding: const EdgeInsets.only(left: 25.0, top: 25),
               // child: Text('1 Muharram\n1435H'),
-              child: Text.rich(
-                TextSpan(
+              child: Text.rich(TextSpan(
                   text: '1 Muharram\n',
                   style: TextStyle(
-                    color: Color(0xfff5f2f2),
-                    fontSize: 18,
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.25),
-                        blurRadius: 10,
-                        offset: Offset(0,4)
-                      )
-                    ]
-                  ),
+                      color: Color(0xfff5f2f2),
+                      fontSize: 18,
+                      shadows: [
+                        Shadow(
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 10,
+                            offset: Offset(0, 4))
+                      ]),
                   children: <InlineSpan>[
                     TextSpan(
-                      text: '1453',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500,
-                          shadows: [
-                      Shadow(
-                      color: Colors.black.withOpacity(0.25),
-                        blurRadius: 10,
-                        offset: Offset(0,4)
-                    )
-                  ]
-                      )
-                    ),
+                        text: '1453',
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
+                            shadows: [
+                              Shadow(
+                                  color: Colors.black.withOpacity(0.25),
+                                  blurRadius: 10,
+                                  offset: Offset(0, 4))
+                            ])),
                     TextSpan(text: 'H')
-                  ]
-                )
-              ),
+                  ])),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 25.0,top: 10),
-              child: Text.rich(
-                  TextSpan(
-                    text: 'Tuesday\n',
-                    style: TextStyle(
+              padding: const EdgeInsets.only(right: 25.0, top: 10),
+              child: Text.rich(TextSpan(
+                  text: 'Tuesday\n',
+                  style: TextStyle(
                       fontSize: 28,
-                        color: Color(0xfff5f2f2),
-                        shadows: [
-                    Shadow(
-                    color: Colors.black.withOpacity(0.25),
-                      blurRadius: 10,
-                      offset: Offset(0,4)
-                  )
-                  ]
-                    ),
-                    children: <InlineSpan>[
-                      TextSpan(
-                        text: '24 October 2024',
-                        style: TextStyle(
-                          fontSize: 13
-                        )
-                      )
-                    ]
-                  )
-              ),
+                      color: Color(0xfff5f2f2),
+                      shadows: [
+                        Shadow(
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 10,
+                            offset: Offset(0, 4))
+                      ]),
+                  children: <InlineSpan>[
+                    TextSpan(
+                        text: '24 October 2024', style: TextStyle(fontSize: 13))
+                  ])),
             )
           ],
         ),
-        height: 250,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xff37553E).withOpacity(0.9),
-              Color(0xff5f936B),
-              Color(0xff79BB88)
-            ],
-          ),
-          borderRadius: BorderRadius.only( bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10))
-        ),
       ),
-  );
+    );
   }
 }
