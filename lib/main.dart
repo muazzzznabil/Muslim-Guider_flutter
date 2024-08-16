@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:muslim_guider_v1/pages/HomePage.dart';
 import 'package:muslim_guider_v1/pages/TasbihRecords.dart';
+import 'package:muslim_guider_v1/pages/about.dart';
 import 'package:muslim_guider_v1/pages/mosqueLocator.dart';
 import 'package:muslim_guider_v1/pages/prayerTime.dart';
+import 'package:muslim_guider_v1/pages/setting.dart';
 import 'package:muslim_guider_v1/pages/tasbihCounter.dart';
 
 void main() {
@@ -25,6 +27,9 @@ class MyApp extends StatelessWidget {
         '/tasbihCounter':(context)=> tasbihCounter(),
         '/prayerTime':(context)=> prayerTime(),
         '/tasbihRecords':(context)=> tasbihRecords(),
+        '/about':(context) => aboutPage(),
+        '/setting':(context) => setting(),
+
 
       },
     );

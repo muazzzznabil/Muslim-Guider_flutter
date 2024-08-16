@@ -1,12 +1,11 @@
 import 'dart:ui';
 
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-// import 'package:sizes/sizes_helpers.dart';
+import 'package:muslim_guider_v1/template/botNavBar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,7 +15,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   double widgetWidth() => MediaQuery.of(context).size.width * 0.9;
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,25 +41,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Color(0xff426567),
-        items: [
-          CurvedNavigationBarItem(
-              child: Icon(Icons.home_rounded),
-              label: 'Homepage'
-          ),
-          CurvedNavigationBarItem(
-              child: Icon(Icons.settings),
-              label: 'Settings'
-          ),
-          CurvedNavigationBarItem(
-              child: Icon(Icons.help_outline),
-              label: 'About'
-          )
-        ],
-        // onTap: (index),
-
-      ),
+      bottomNavigationBar: bottomNavigationBar(),
       
 
     );
