@@ -38,6 +38,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   flutter_svg_provider: ^1.0.3
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -88,6 +89,8 @@ flutter:
            weight: 500
          - asset: assets/fonts/Poppins-Regular.ttf
            weight: 400
+         - asset: assets/fonts/Poppins-Regular.ttf
+           weight: 600
 
   #
   # For details regarding fonts from package dependencies,
