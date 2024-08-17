@@ -1,11 +1,17 @@
 import 'dart:ui';
 
 
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:muslim_guider_v1/template/botNavBar.dart';
+import 'package:muslim_guider_v1/pages/mosqueLocator.dart';
+import 'package:muslim_guider_v1/pages/prayerTime.dart';
+import 'package:muslim_guider_v1/pages/setting.dart';
+import 'package:muslim_guider_v1/pages/tasbihCounter.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +24,21 @@ class _HomePageState extends State<HomePage> {
 
   double widgetWidth() => MediaQuery.of(context).size.width * 0.9;
 
+  final items = <CurvedNavigationBarItem>[
+    CurvedNavigationBarItem(
+      child: Icon(Icons.home_rounded, size: 30),label: 'Home',
+    ),
+    CurvedNavigationBarItem(
+      child: Icon(Icons.settings, size: 30),
+      label: 'Settings',
+    ),
+  ];
+  List<dynamic> _page = [
+    HomePage(),
+    setting(),
+  ];
+  int _pageIndex = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +47,39 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(100.00),
         child: appBar(),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            children: [
-              SizedBox(height: 30,),
-              prayerTimeWidget(),
-              SizedBox(height: 30,),
-              tasbihCounterWidget(),
-              SizedBox(height: 30,),
-              mosqueLocatorWidget(),
-            ],
-          ),
-        ],
+      body: _pageIndex == 0 ? homepageBody(): setting(),
+       bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.transparent,
+        buttonBackgroundColor: Color(0xff5f936B),
+        color: Color(0xff5f936B),
+        animationDuration: const Duration(milliseconds: 230),
+          items: items,
+        onTap: (index){
+          setState(() {
+            _pageIndex = index;
+          });
+        },
       ),
-      bottomNavigationBar: bottomNavigationBar(),
-      
 
+
+    );
+  }
+
+  Row homepageBody() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Column(
+          children: [
+            SizedBox(height: 30,),
+            prayerTimeWidget(),
+            SizedBox(height: 30,),
+            tasbihCounterWidget(),
+            SizedBox(height: 30,),
+            mosqueLocatorWidget(),
+          ],
+        ),
+      ],
     );
   }
 
@@ -324,22 +360,6 @@ class _HomePageState extends State<HomePage> {
                             ]),
                       ),
                     )
-
-                    // Text(
-                    //     '6572',
-                    //   style: TextStyle(
-                    //     fontSize: 30,
-                    //     fontWeight: FontWeight.w600,
-                    //     color: Gradient.linear(
-                    //         Offset.fromDirection(20),
-                    //         Offset.fromDirection(10),
-                    //         colors:[
-                    //           Color(0xffFEF0D7),
-                    //           Color(0xffF7A719)
-                    //         ]
-                    //     )
-                    //   ),
-                    // ),
                   ],
                 )
               ],
@@ -481,3 +501,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+

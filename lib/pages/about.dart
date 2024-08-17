@@ -6,10 +6,17 @@ class aboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Column(
 
+      children: [
+        Center(
+          child: Text(
+              'ABOUTTT'
+          ),
+        ),
 
-      bottomNavigationBar: bottomNavigationBar(),
+      ],
+
     );
   }
 }

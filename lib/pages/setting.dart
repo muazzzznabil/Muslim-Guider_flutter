@@ -6,10 +6,17 @@ class setting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Column(
 
+  children: [
+    Center(
+      child: Text(
+        'SETINNGs'
+      ),
+    ),
 
-      bottomNavigationBar: bottomNavigationBar(),
+  ],
+
     );
   }
 }
