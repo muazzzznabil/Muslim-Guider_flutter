@@ -38,6 +38,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   flutter_svg_provider: ^1.0.3
   curved_labeled_navigation_bar: ^2.0.2
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:

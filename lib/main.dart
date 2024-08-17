@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muslim_guider_v1/pages/ContactUs.dart';
 import 'package:muslim_guider_v1/pages/HomePage.dart';
 import 'package:muslim_guider_v1/pages/TasbihRecords.dart';
 import 'package:muslim_guider_v1/pages/about.dart';
@@ -29,6 +30,8 @@ class MyApp extends StatelessWidget {
         '/tasbihRecords':(context)=> tasbihRecords(),
         '/about':(context) => aboutPage(),
         '/setting':(context) => setting(),
+        '/contactUs':(context) => contactUs(),
+
 
 
       },
