@@ -53,7 +53,8 @@ class contactUs extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SvgPicture.asset(
-                    'assets/icons/instagram-logo 2.svg',
+                    'assets/icons/instagram.svg',
+                    width: 26,
                   ),
                   Text(
                     'muaz.nabil',
@@ -63,7 +64,8 @@ class contactUs extends StatelessWidget {
                     ),
                   ),
                   SvgPicture.asset(
-                      'assets/icons/share 1.svg'
+                      'assets/icons/share.svg',
+                    width: 25,
                   ),
                 ],
               ),
@@ -92,7 +94,8 @@ class contactUs extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SvgPicture.asset(
-                    'assets/icons/instagram-logo 2.svg',
+                    'assets/icons/instagram.svg',
+                    width: 26,
                   ),
                   Text(
                     'fariddinn_',
@@ -102,7 +105,8 @@ class contactUs extends StatelessWidget {
                     ),
                   ),
                   SvgPicture.asset(
-                      'assets/icons/share 1.svg'
+                      'assets/icons/share.svg',
+                    width: 25,
                   ),
                 ],
               ),
@@ -139,8 +143,8 @@ class contactUs extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SvgPicture.asset(
-                      'assets/icons/call-us.svg',
-                      width: 20,
+                      'assets/icons/callnew.svg',
+                      width: 30,
                     ),
                     Text(
                       'Call us',
@@ -161,7 +165,7 @@ class contactUs extends StatelessWidget {
                     Text(
                       'Mon-Fri | 8-17',
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color: Colors.black
                       ),
@@ -190,8 +194,8 @@ class contactUs extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SvgPicture.asset(
-                      'assets/icons/email-us.svg',
-                      width: 20,
+                      'assets/icons/emailnew.svg',
+                      height: 32,
                     ),
                     Text(
                       'Email us',
@@ -212,7 +216,7 @@ class contactUs extends StatelessWidget {
                     Text(
                       'Mon-Fri | 8-17',
                       style: TextStyle(
-                          fontSize: 10,
+                          fontSize: 12,
                           fontWeight: FontWeight.w400,
                           color: Colors.black
                       ),
