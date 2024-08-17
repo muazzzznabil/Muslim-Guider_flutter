@@ -82,7 +82,9 @@ class _tasbihCounterState extends State<tasbihCounter> {
 
                   //Container untuk button set goal
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.pushNamed(context, '/contactUs');
+                    },
                     child: Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

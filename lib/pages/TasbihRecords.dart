@@ -35,15 +35,17 @@ class tasbihRecords extends StatelessWidget {
               ),
             ),
 
-            ListView.builder(
-              itemBuilder: (context,index){
-                return Container(
+            // ListView.builder(
+            //   itemBuilder: (context,index){
+            //     return Container(
+            //
+            //     );
+            //   },
+            //   scrollDirection: Axis.vertical,
+            //
+            // ),
 
-                );
-              },
-              scrollDirection: Axis.vertical,
 
-            ),
           ],
         ),
       ),
