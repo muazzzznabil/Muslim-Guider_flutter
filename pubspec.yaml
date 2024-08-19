@@ -39,6 +39,8 @@ dependencies:
   flutter_svg_provider: ^1.0.3
   curved_labeled_navigation_bar: ^2.0.2
   url_launcher: ^6.3.0
+  geolocator: ^13.0.1
+  geocoding: ^3.0.0
 
 dev_dependencies:
   flutter_test:
