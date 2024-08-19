@@ -26,7 +26,7 @@ if (flutterVersionName == null) {
 android {
     namespace = "com.example.muslim_guider_v1"
     compileSdk = flutter.compileSdkVersion
-    compileSdkVersion 34
+    compileSdkVersion = 34
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
