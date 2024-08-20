@@ -2,6 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+final Uri _urlMuaz = Uri.parse('https://www.instagram.com/muaz.nabil');
+final Uri _urlDin = Uri.parse('https://www.instagram.com/fariddinn_');
+
+Future<void> _launchUrlMuaz() async {
+  if (!await launchUrl(_urlMuaz)){
+    throw Exception('Could not launch $_urlMuaz');
+  }
+}
+Future<void> _launchUrlDin() async {
+  if (!await launchUrl(_urlDin)){
+    throw Exception('Could not launch $_urlDin');
+  }
+}
+
+
 class contactUs extends StatelessWidget {
   const contactUs({super.key});
 
@@ -32,7 +47,9 @@ class contactUs extends StatelessWidget {
           ),
           SizedBox(height: 15),
           GestureDetector(
-            onTap: (){},
+            onTap: (){
+              _launchUrlMuaz();
+            },
             child: Container(
               height: 55,
               width: 295,
@@ -73,7 +90,9 @@ class contactUs extends StatelessWidget {
           ),
           SizedBox(height: 15),
           GestureDetector(
-            onTap: (){},
+            onTap: (){
+              _launchUrlDin();
+            },
             child: Container(
               height: 55,
               width: 295,
