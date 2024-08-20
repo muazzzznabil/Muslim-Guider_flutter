@@ -8,7 +8,7 @@ import 'package:muslim_guider_v1/pages/prayerTime.dart';
 import 'package:muslim_guider_v1/pages/setting.dart';
 import 'package:muslim_guider_v1/pages/tasbihCounter.dart';
 
-void main() {
+void main() async{
   runApp(const MyApp());
 }
 

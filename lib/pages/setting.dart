@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:muslim_guider_v1/template/botNavBar.dart';
+import 'package:muslim_guider_v1/test/location_test.dart';
 
 class setting extends StatelessWidget {
   const setting({super.key});
@@ -49,7 +50,7 @@ class setting extends StatelessWidget {
                       ),
                     ),
 
-                    GestureDetector(
+                    GestureDetector( //about
                       onTap: () {
                         Navigator.pushNamed(context, '/about');
                       },
@@ -85,10 +86,28 @@ class setting extends StatelessWidget {
                   ],
                 ),
 
+
+
+
               ],
 
         ),
+        GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => locationTest()));
+          },
+          child:
+          Container(
+            child: Text('Location test'),
+            width: 80,
+            height: 80,
+
+            color: Colors.orange,
+          ),
+
+        )
       ],
+
     );
 
 

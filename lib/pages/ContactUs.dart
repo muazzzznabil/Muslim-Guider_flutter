@@ -233,8 +233,8 @@ class contactUs extends StatelessWidget {
     return Padding(
           padding: const EdgeInsets.all(30),
           child: Text(
-            "Don't hesitate to contact us weather you have a suggestion on our improvement"
-                "or a complain to discuss or an issue to solve.",
+            "Don't hesitate to contact us if you have any suggestion for improvement\t"
+                "or any issues that need to be solved.",
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,

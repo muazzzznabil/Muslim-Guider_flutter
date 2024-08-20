@@ -6,6 +6,18 @@ class geolocator{
   String? _currentAddress;
   Position? _currentPosition;
 
+/*************************************************************************************
+* What this Class do:
+ * -handle location permission > return Snackbar to warn the user
+ * -getLocationPermission      > return boolean value to check the location Permission
+ * -getCurrentLocation         > return current Location (lng, lng)  of the user in List form
+ * -getAddressFromLatLng       > return human-readable address exp:
+ *                                  -> country
+ *                                  -> locality > city name
+ *                                  -> postalCode > postCode
+ *                                  -> street > Street Name
+* ************************************************************************************/
+
 
   //handle the access to the device location service
   @override
@@ -55,6 +67,10 @@ class geolocator{
     return true;
   }
 
+  // bool getPermissionBool(){
+  // return getLocationPermission();
+  // }
+
   Future<Position> getCurrentPosition(BuildContext context) async { //return lng and long
     final hasPermission = await handleLocationPermission(context); //check if the permission is allowed
     Position position;
@@ -65,7 +81,7 @@ class geolocator{
     }
     }
 
-  Future<Placemark> _getAddressFromLatLng(Position position) async {
+  Future<Placemark> getAddressFromLatLng(Position position) async {
     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemarks[0];
     return place;
