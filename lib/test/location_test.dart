@@ -19,22 +19,29 @@ class _locationTestState extends State<locationTest> {
   String permStat = 'Checking....';
   String latStat = 'Waiting....';
   String lngStat = 'Waiting....';
+  String lastLatStat = 'Waiting....';
+  String lastLngStat = 'Waiting....';
   String country = 'Unknown....';
   String locality = 'Unknown....';
   String postalCode = 'Unknown....';
   String street = 'Unknown....';
+  String lastCountry = 'Unknown....';
+  String lastLocality = 'Unknown....';
+  String lastPostalCode = 'Unknown....';
+  String lastStreet = 'Unknown....';
 
-  // @override
-  // void initState(){
-  //   super.initState();
-  //   _getInititalInfo();
-  // }
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void _getInititalInfo() async{
     geolocator().handleLocationPermission(context);
     bool perm = await geolocator().getLocationPermission();
     Position position= await geolocator().getCurrentPosition(context);
     Placemark placemark = await geolocator().getAddressFromLatLng(position);
+    Position last_latlng = await geolocator().getLastKnownLatlng();
+    Placemark lastPacemark = await geolocator().getLastKnownPlace();
 
     latStat = position.latitude.toString();
     lngStat = position.longitude.toString();
@@ -44,6 +51,10 @@ class _locationTestState extends State<locationTest> {
     postalCode = placemark.postalCode.toString();
     street = placemark.street.toString();
 
+    lastCountry = placemark.country.toString();
+    lastLocality = placemark.locality.toString();
+    lastPostalCode = placemark.postalCode.toString();
+    lastStreet = placemark.street.toString();
 
     setState(() {
       if(perm){
@@ -73,20 +84,31 @@ class _locationTestState extends State<locationTest> {
         child: Column(
           children: [
             SizedBox(height: 8,width: 300,child: Divider(),),
-            Text('Handle Location' ),
+            Text('Handle Location' ,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),),
+
             SizedBox(height: 8,width: 300,child: Divider(),),
             Text('get Location Permission : $permStat'),
             Text('Permission Using Set State: $permissionStatus'),
+
             SizedBox(height: 8,width: 300,child: Divider(),),
-            Text('get Current Location'),
+            Text('get Current Location',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),),
             Text('lat : $latStat'),
             Text('lng : $lngStat'),
+
             SizedBox(height: 8,width: 300,child: Divider(),),
-            Text('get Address from lat,lng'),
+            Text('get Address from lat,lng',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),),
             Text('Country : $country'),
             Text('locality (City Name) : $locality'),
             Text('postalCode (PostCode) : $postalCode'),
             Text('street : $street'),
+
+            SizedBox(height: 8,width: 300,child: Divider(),),
+            Text('get last known location',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),),
+            Text('Country : $lastCountry'),
+            Text('locality (City Name) : $lastLocality'),
+            Text('postalCode (PostCode) : $lastPostalCode'),
+            Text('street : $lastStreet'),
+
             SizedBox(height: 8,width: 300,child: Divider(),),
 
 
