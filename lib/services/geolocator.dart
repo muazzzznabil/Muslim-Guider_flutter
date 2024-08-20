@@ -87,5 +87,22 @@ class geolocator{
     return place;
   }
 
+  Future<Position> getLastKnownLatlng() async {
+    Position? position = await Geolocator.getLastKnownPosition();
+    if (position != null) {
+      return position;
+    } else {
+      throw Exception("No last known location available");
+    }
+  }
+
+  Future<Placemark> getLastKnownPlace() async{
+    Position position = await getLastKnownLatlng();
+    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    Placemark place = placemarks[0];
+    return place;
+
+  }
+
 
 }
