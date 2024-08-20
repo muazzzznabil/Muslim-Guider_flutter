@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class geolocator{
   String? _currentAddress;
@@ -36,7 +37,7 @@ class geolocator{
       return false;
     }
     permission = await Geolocator.checkPermission();
-    if(permission == LocationPermission.denied){
+      if(permission == LocationPermission.denied){
       permission = await Geolocator.requestPermission();
       if(permission == LocationPermission.denied){
         ScaffoldMessenger.of(context!).showSnackBar(
@@ -67,15 +68,17 @@ class geolocator{
     return true;
   }
 
-  // bool getPermissionBool(){
-  // return getLocationPermission();
-  // }
-
   Future<Position> getCurrentPosition(BuildContext context) async { //return lng and long
     final hasPermission = await handleLocationPermission(context); //check if the permission is allowed
     Position position;
+    final prefs = await SharedPreferences.getInstance();
+
     if (hasPermission) {
-      return  position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      await prefs.setDouble('lastLat', position.latitude);
+      await prefs.setDouble('lastLong', position.longitude);
+      return position;
+          return  position;
       }else{
       throw Exception('Location permission not granted');
     }
@@ -89,7 +92,11 @@ class geolocator{
 
   Future<Position> getLastKnownLatlng() async {
     Position? position = await Geolocator.getLastKnownPosition();
+    final prefs = await SharedPreferences.getInstance();
+
     if (position != null) {
+      await prefs.setDouble('lastLat', position.latitude);
+      await prefs.setDouble('lastLong', position.longitude);
       return position;
     } else {
       throw Exception("No last known location available");
@@ -98,10 +105,24 @@ class geolocator{
 
   Future<Placemark> getLastKnownPlace() async{
     Position position = await getLastKnownLatlng();
-    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-    Placemark place = placemarks[0];
-    return place;
+    final prefs = await SharedPreferences.getInstance();
 
+    final lat = await prefs.getDouble('lastLat');
+    final lng = await prefs.getDouble('lastLong');
+
+    if (lat == null || lng == null) {
+      throw Exception("No saved location available");
+    }
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(lat, lng);
+      if (placemarks.isNotEmpty) {
+        return placemarks[0];
+      } else {
+        throw Exception("No placemark found for the given coordinates");
+      }
+    } catch (e) {
+      throw Exception("Error retrieving placemark: $e");
+    }
   }
 
 

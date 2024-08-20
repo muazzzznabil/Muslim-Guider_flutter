@@ -99,7 +99,7 @@ class setting extends StatelessWidget {
           child:
           Container(
             child: Text('Location test'),
-            width: 80,
+            width: 90,
             height: 80,
 
             color: Colors.orange,

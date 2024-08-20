@@ -40,8 +40,11 @@ class _locationTestState extends State<locationTest> {
     bool perm = await geolocator().getLocationPermission();
     Position position= await geolocator().getCurrentPosition(context);
     Placemark placemark = await geolocator().getAddressFromLatLng(position);
-    Position last_latlng = await geolocator().getLastKnownLatlng();
-    Placemark lastPacemark = await geolocator().getLastKnownPlace();
+    // Position lastPosition = await geolocator().getLastKnownLatlng();
+    // Placemark lastPlacemark = await geolocator().getLastKnownPlace();
+
+    // lastLatStat = lastPosition.latitude.toString();
+    // lastLngStat = lastPosition.longitude.toString();
 
     latStat = position.latitude.toString();
     lngStat = position.longitude.toString();
@@ -51,10 +54,14 @@ class _locationTestState extends State<locationTest> {
     postalCode = placemark.postalCode.toString();
     street = placemark.street.toString();
 
-    lastCountry = placemark.country.toString();
-    lastLocality = placemark.locality.toString();
-    lastPostalCode = placemark.postalCode.toString();
-    lastStreet = placemark.street.toString();
+    // lastCountry = lastPlacemark.country.toString();
+    // lastLocality = lastPlacemark.locality.toString();
+    // lastPostalCode = lastPlacemark.postalCode.toString();
+    // lastStreet = lastPlacemark.street.toString();
+    // print(lastCountry);
+    // print(lastLocality);
+    // print(lastPostalCode);
+    // print(lastStreet);
 
     setState(() {
       if(perm){
@@ -76,6 +83,19 @@ class _locationTestState extends State<locationTest> {
     }
   }
 
+  void getLastLocation() async{
+    Position lastPosition = await geolocator().getLastKnownLatlng();
+    Placemark lastPlacemark = await geolocator().getLastKnownPlace();
+
+    lastLatStat = lastPosition.latitude.toString();
+    lastLngStat = lastPosition.longitude.toString();
+
+    lastCountry = lastPlacemark.country.toString();
+    lastLocality = lastPlacemark.locality.toString();
+    lastPostalCode = lastPlacemark.postalCode.toString();
+    lastStreet = lastPlacemark.street.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -95,6 +115,11 @@ class _locationTestState extends State<locationTest> {
             Text('lat : $latStat'),
             Text('lng : $lngStat'),
 
+            SizedBox(height: 8,width: 300,child: Divider(),),
+            Text('get Last Location',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),),
+            Text('lat : $lastLatStat'),
+            Text('lng : $lastLngStat'),
+            
             SizedBox(height: 8,width: 300,child: Divider(),),
             Text('get Address from lat,lng',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),),
             Text('Country : $country'),
@@ -126,6 +151,22 @@ class _locationTestState extends State<locationTest> {
                   borderRadius: BorderRadius.circular(20)
                 ),
                 ),
+            ),
+            SizedBox(height: 10,),
+            GestureDetector(
+              onTap: (){
+                getLastLocation();
+              },
+              child: Container(
+
+                child: Text('Get Last Location',textAlign: TextAlign.center,),
+                width: 80,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(20)
+                ),
+              ),
             )
 
           ],
