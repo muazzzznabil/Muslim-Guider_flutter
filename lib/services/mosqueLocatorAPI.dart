@@ -12,7 +12,7 @@ class Mosquelocatorapi {
 
     //Check response
     if (response.statusCode == 200) {
-      final List result = jsonDecode(response.body)['name'];
+      final List result = jsonDecode(response.body)['name'];//test
       return result.map(((e) => Mosquelocator.fromJson(e))).toList();
     } else {
       throw Exception(response.reasonPhrase);
