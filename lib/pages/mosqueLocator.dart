@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:muslim_guider_v1/dataProvider/data_provider.dart';
 import 'package:riverpod/riverpod.dart';
+
+import '../model/mosque_model.dart';
 
 
 class mosqueLocator extends ConsumerWidget {
@@ -10,6 +13,7 @@ class mosqueLocator extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final data = ref.watch(mosqueDataProvider);
     return  Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -29,17 +33,40 @@ class mosqueLocator extends ConsumerWidget {
             currentLocation(),
             SizedBox(height: 30,),
             Container(
-              // child: ListView.separated(
-              //     itemBuilder: (context,index){
-              //       return Container();
-              //     },
-              //     separatorBuilder: (context, index) => const SizedBox(height: 25,),
-              //     scrollDirection: Axis.vertical,
-              //     padding: const EdgeInsets.only(
-              //       left: 20,
-              //       right: 20
-              //     ),
-              //     itemCount: itemCount),
+              child: data.when(
+                  data: (data){
+                    List<Mosquelocator> mosqueList = data.map((e) => e).toList();
+                    return Column(
+                      children: [
+                        Expanded(child: ListView.builder(
+                          itemCount: mosqueList.length,
+                          itemBuilder: (_,index){
+                            final mosque = data[index];
+                            return Card(
+                              color: Colors.green,
+                              elevation: 4,
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              child: ListTile(
+                                title: Text(
+                                  mosque.name,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                        )
+                      ],
+                    );
+                  },
+                  error: (err, s) => Text(err.toString()),
+                  loading: () => const Center(
+                    child: CircularProgressIndicator(),
+                  )),
             )
           ],
         ),
