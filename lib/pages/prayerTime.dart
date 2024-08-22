@@ -150,10 +150,10 @@ class prayerTime extends ConsumerWidget {
                                                     final subhTime = prayerTime.isNotEmpty ? subh : 'N/A';
                                                     return subhTime;
                                                   },
-                                                  error: (err,s) => 'error fetching data',
+                                                  error: (err,s) => ' $err',
                                                   loading: () => 'Fetching Data'
                                               ),
-                                              style: TextStyle(color: white),
+                                              style: TextStyle(color: white,fontSize: 4),
                                             )
                                           ],
                                         ),
