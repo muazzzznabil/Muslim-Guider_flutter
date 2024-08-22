@@ -35,7 +35,7 @@ class mosqueLocator extends ConsumerWidget {
             Container(
               child: data.when(
                   data: (data){
-                    List<Mosquelocator> mosqueList = data.map((e) => e).toList();
+                    List<MosqueLocator> mosqueList = data.map((e) => e).toList();
                     return Column(
                       children: [
                         Expanded(child: ListView.builder(

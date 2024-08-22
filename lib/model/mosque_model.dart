@@ -1,19 +1,19 @@
-import 'package:flutter/material.dart';
+class MosqueLocator {
+  final String name;
+  final double latitude;
+  final double longitude;
 
-
-class Mosquelocator{
-  String name;
-  //double distance;
-
-  Mosquelocator({
+  MosqueLocator({
     required this.name,
-    //required this.distance,
+    required this.latitude,
+    required this.longitude,
   });
 
-  factory Mosquelocator.fromJson(Map<String, dynamic> json){
-    return Mosquelocator(
-        name: json['name']
+  factory MosqueLocator.fromJson(Map<String, dynamic> json) {
+    return MosqueLocator(
+      name: json['name'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
     );
   }
-
 }

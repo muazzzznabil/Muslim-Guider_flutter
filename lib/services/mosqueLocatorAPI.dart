@@ -1,35 +1,48 @@
-
+//
+// import 'dart:convert';
+// import 'package:http/http.dart';
+// import 'package:riverpod/riverpod.dart';
+// import '../model/mosque_model.dart';
+//
+// class Mosquelocatorapi {
+//   String endpoint = 'https://masjid.onrender.com/near_by_mosque?coordinate=3.140853,101.693207&accuracy=0.04';
+//
+//   Future<List<Mosquelocator>> getMosque() async {
+//     Response response = await get(Uri.parse(endpoint));
+//
+//     //Check response
+//     if (response.statusCode == 200) {
+//       final List result = jsonDecode(response.body)['name'];//test
+//       return result.map(((e) => Mosquelocator.fromJson(e))).toList();
+//     } else {
+//       throw Exception(response.reasonPhrase);
+//     }
+//   }
+// }
+//   //Create provider to share data
+//   final mosqueProvider = Provider<Mosquelocatorapi>((ref)=>Mosquelocatorapi());
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:riverpod/riverpod.dart';
 import '../model/mosque_model.dart';
 
-class Mosquelocatorapi {
-  String endpoint = 'https://masjid.onrender.com/near_by_mosque?coordinate=3.140853,101.693207&accuracy=0.04';
+class MosqueLocatorApi {
+  final String endpoint = 'https://masjid.onrender.com/near_by_mosque?coordinate=3.140853,101.693207&accuracy=0.04';
 
-  Future<List<Mosquelocator>> getMosque() async {
+  Future<List<MosqueLocator>> getMosques() async {
     Response response = await get(Uri.parse(endpoint));
 
-    //Check response
+    // Check response status
     if (response.statusCode == 200) {
-      final List result = jsonDecode(response.body)['name'];//test
-      return result.map(((e) => Mosquelocator.fromJson(e))).toList();
+      // Assuming the API returns a JSON array of mosque objects
+      final List<dynamic> result = jsonDecode(response.body);
+      return result.map((e) => MosqueLocator.fromJson(e)).toList();
     } else {
       throw Exception(response.reasonPhrase);
     }
   }
 }
-  //Create provider to share data
-  final mosqueProvider = Provider<Mosquelocatorapi>((ref)=>Mosquelocatorapi());
 
-
-
-
-
-
-
-
-
-
-
+// Create provider to share data
+final mosque_Provider = Provider<MosqueLocatorApi>((ref) => MosqueLocatorApi());
 
