@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muslim_guider_v1/pages/ContactUs.dart';
 import 'package:muslim_guider_v1/pages/HomePage.dart';
 import 'package:muslim_guider_v1/pages/TasbihRecords.dart';
@@ -9,7 +10,7 @@ import 'package:muslim_guider_v1/pages/setting.dart';
 import 'package:muslim_guider_v1/pages/tasbihCounter.dart';
 
 void main() async{
-  runApp(const MyApp());
+  runApp( ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
