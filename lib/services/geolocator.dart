@@ -21,7 +21,6 @@ class geolocator{
 
 
   //handle the access to the device location service
-  @override
   Future<bool> handleLocationPermission(BuildContext? context) async{ //just add "context" in the parameter of the method.
   /*
   exp of the usage:
