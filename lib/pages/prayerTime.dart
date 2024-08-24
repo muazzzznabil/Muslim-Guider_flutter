@@ -54,7 +54,7 @@ class prayerTime extends ConsumerWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      bottomContainer(context, _waktuSolat),
+                      bottomContainer(context,_waktuSolat ),
                     ],
                   )
                 ],
@@ -64,8 +64,10 @@ class prayerTime extends ConsumerWidget {
     );
   }
 
-  Container bottomContainer(BuildContext context, AsyncValue<List<waktuSolatModel>> _waktuSolat) {
-    DateTime timeConv;
+  Container bottomContainer(BuildContext context, AsyncValue<PrayerTime> _waktuSolat) {
+
+
+
 
     return Container(
                       //bottom section
@@ -144,16 +146,15 @@ class prayerTime extends ConsumerWidget {
                                             ),
                                             Text(
                                               _waktuSolat.when(
-                                                  data: (prayerTime){
-                                                    String subh = prayerTime.first.formattedSubh;
-
-                                                    final subhTime = prayerTime.isNotEmpty ? subh : 'N/A';
-                                                    return subhTime;
+                                                  data: (waktuSolat){
+                                                    String subh = waktuSolat.subh;
+                                                    // final subhTime = waktuSolat. ? subh : 'N/A';
+                                                    return subh;
                                                   },
                                                   error: (err,s) => ' $err',
                                                   loading: () => 'Fetching Data'
                                               ),
-                                              style: TextStyle(color: white,fontSize: 4),
+                                              style: TextStyle(color: white),
                                             )
                                           ],
                                         ),
@@ -190,11 +191,10 @@ class prayerTime extends ConsumerWidget {
                                             ),
                                             Text(
                                               _waktuSolat.when(
-                                                  data: (prayerTime){
-                                                    String subh = prayerTime.first.formattedSyuruk;
-
-                                                    final subhTime = prayerTime.isNotEmpty ? subh : 'N/A';
-                                                    return subhTime;
+                                                  data: (_waktuSolat){
+                                                    String syuruk = _waktuSolat.syuruk;
+                                                    // final syurukTime = _waktuSolat.isNotEmpty ? syuruk : 'N/A';
+                                                    return syuruk;
                                                   },
                                                   error: (err,s) => 'error fetching data',
                                                   loading: () => 'Fetching Data'
@@ -236,11 +236,10 @@ class prayerTime extends ConsumerWidget {
                                             ),
                                             Text(
                                               _waktuSolat.when(
-                                                  data: (prayerTime){
-                                                    String subh = prayerTime.first.formattedZuhr;
-
-                                                    final subhTime = prayerTime.isNotEmpty ? subh : 'N/A';
-                                                    return subhTime;
+                                                  data: (_waktuSolat){
+                                                    String subh = _waktuSolat.zuhr;
+                                                    // final subhTime = _waktuSolat.isNotEmpty ? subh : 'N/A';
+                                                    return subh;
                                                   },
                                                   error: (err,s) => 'error fetching data',
                                                   loading: () => 'Fetching Data'
@@ -282,11 +281,11 @@ class prayerTime extends ConsumerWidget {
                                             ),
                                             Text(
                                               _waktuSolat.when(
-                                                  data: (prayerTime){
-                                                    String subh = prayerTime.first.formattedAsr;
+                                                  data: (_waktuSolat){
+                                                    String subh = _waktuSolat.asr;
 
-                                                    final subhTime = prayerTime.isNotEmpty ? subh : 'N/A';
-                                                    return subhTime;
+                                                    // final subhTime = _waktuSolat.isNotEmpty ? subh : 'N/A';
+                                                    return subh;
                                                   },
                                                   error: (err,s) => 'error fetching data',
                                                   loading: () => 'Fetching Data'
@@ -328,11 +327,11 @@ class prayerTime extends ConsumerWidget {
                                             ),
                                             Text(
                                               _waktuSolat.when(
-                                                  data: (prayerTime){
-                                                    String subh = prayerTime.first.formattedMaghrib;
+                                                  data: (_waktuSolat){
+                                                    String subh = _waktuSolat.maghrib;
 
-                                                    final subhTime = prayerTime.isNotEmpty ? subh : 'N/A';
-                                                    return subhTime;
+                                                    // final subhTime = _waktuSolat. ? subh : 'N/A';
+                                                    return subh;
                                                   },
                                                   error: (err,s) => 'error fetching data',
                                                   loading: () => 'Fetching Data'
@@ -374,11 +373,11 @@ class prayerTime extends ConsumerWidget {
                                             ),
                                             Text(
                                               _waktuSolat.when(
-                                                  data: (prayerTime){
-                                                    String subh = prayerTime.first.formattedIsha;
+                                                  data: (_waktuSolat){
+                                                    String subh = _waktuSolat.isha;
 
-                                                    final subhTime = prayerTime.isNotEmpty ? subh : 'N/A';
-                                                    return subhTime;
+                                                    // final subhTime = _waktuSolat.isNotEmpty ? subh : 'N/A';
+                                                    return subh;
                                                   },
                                                   error: (err,s) => 'error fetching data',
                                                   loading: () => 'Fetching Data'
