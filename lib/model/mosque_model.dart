@@ -1,7 +1,7 @@
 class MosqueLocator {
   final String name;
-  final double latitude;
-  final double longitude;
+  final String latitude;
+  final String longitude;
 
   MosqueLocator({
     required this.name,
@@ -12,8 +12,8 @@ class MosqueLocator {
   factory MosqueLocator.fromJson(Map<String, dynamic> json) {
     return MosqueLocator(
       name: json['name'],
-      latitude: json['latitude'],
-      longitude: json['longitude'],
+      latitude: json['lat'],
+      longitude: json['lon'],
     );
   }
 }

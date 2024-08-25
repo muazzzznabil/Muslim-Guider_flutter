@@ -5,6 +5,7 @@ import 'package:muslim_guider_v1/services/mosqueLocatorAPI.dart';
 import 'package:riverpod/riverpod.dart';
 
 final mosqueDataProvider = FutureProvider<List<MosqueLocator>>((ref) async{
+  print('-------------------------------------------------');
   return ref.watch(mosque_Provider).getMosques();
 });
 

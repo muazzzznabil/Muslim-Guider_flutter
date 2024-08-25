@@ -226,7 +226,7 @@ class mosqueLocator extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                'assets/icons/redlocation.svg',
+                'assets/icons/map-pin-color.svg',
                 width: 25,
                 color: Colors.red,
               ),

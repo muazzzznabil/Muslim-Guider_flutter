@@ -33,6 +33,9 @@ class PrayerTime {
 
   static String _formatTime(int epochTime) {
     DateTime date = DateTime.fromMillisecondsSinceEpoch(epochTime * 1000);
-    return "${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')} ${date.hour >= 12 ? 'p.m.' : 'a.m.'}";
+    int hour = date.hour % 12;
+    if (hour == 0) hour = 12; // Handle midnight and noon
+    return "${hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(
+        2, '0')} ${date.hour >= 12 ? 'p.m.' : 'a.m.'}";
   }
 }
