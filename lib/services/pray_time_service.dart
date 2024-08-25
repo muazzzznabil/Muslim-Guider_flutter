@@ -71,7 +71,7 @@ String _zoneCode(String placeName){
     return 'KDH01';
   } else if (['kuala muda', 'yan', 'pendang'].contains(place)) {
     return 'KDH02';
-  } else if (['padang terap', 'sik'].contains(place)) {
+  } else if (['padang terap', 'sik', 'kuala nerang'].contains(place)) {
     return 'KDH03';
   } else if (['baling'].contains(place)) {
     return 'KDH04';

@@ -1,26 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:muslim_guider_v1/model/waktuSolat_model.dart';
 
 import '../dataProvider/waktu_solat_provider.dart';
+import '../services/geolocator.dart';
 
 class prayerTime extends ConsumerWidget {
   prayerTime({super.key});
 
   Color white = Colors.white;
-
   Shadow basicShadow = Shadow(
       color: Colors.black.withOpacity(0.25),
       blurRadius: 10,
       offset: Offset(4, 4));
+String city = 'loading...';
 
+  final _geolocator = geolocator();
+
+
+  void _getInititalInfo() async {
+    Position position = await _geolocator.getCurrentPosition();
+    Placemark placemark = await _geolocator.getAddressFromLatLng(position);
+    city = placemark.locality.toString();
+  }
   @override
   Widget build(BuildContext context, ref) {
-
+    _getInititalInfo();
     final _waktuSolat = ref.watch(waktuSolatProvider);
 
-    // List<waktuSolatModel> wsData = _waktuSolat.map((e) => e).toList();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -98,7 +108,7 @@ class prayerTime extends ConsumerWidget {
                                     width: 20,
                                   ),
                                   Text(
-                                    ' Kuala Terengganu',
+                                    '$city',
                                     style: TextStyle(
                                         color: white,
                                         fontWeight: FontWeight.w200,
