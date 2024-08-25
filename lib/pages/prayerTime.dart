@@ -36,41 +36,49 @@ String city = 'loading...';
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xff67987c),
       appBar: appBar(),
-      body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/background/prayTimeBg.png'),
-                  opacity: 0.9,
-                  fit: BoxFit.cover)),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        //Search Bar
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        child: buildSearchBar(),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      topSection(context), //topSection
-                      SizedBox(
-                        height: 20,
-                      ),
-                      bottomContainer(context,_waktuSolat ),
-                    ],
-                  )
-                ],
-              ),
-            ],
-          )),
+      body: RefreshIndicator(
+
+        onRefresh: () async {
+          ref.refresh(waktuSolatProvider);
+        },
+        child: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/background/prayTimeBg.png'),
+                    opacity: 0.9,
+                    fit: BoxFit.cover)),
+            child: ListView (
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        SizedBox(
+                          //Search Bar
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          child: buildSearchBar(),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        topSection(context), //topSection
+                        SizedBox(
+                          height: 20,
+                        ),
+                        bottomContainer(context,_waktuSolat ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            )),
+      )
+
+
     );
   }
 
