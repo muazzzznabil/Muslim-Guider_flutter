@@ -67,20 +67,16 @@ class geolocator{
     return true;
   }
 
-  Future<Position> getCurrentPosition(BuildContext context) async { //return lng and long
-    final hasPermission = await handleLocationPermission(context); //check if the permission is allowed
+  Future<Position> getCurrentPosition( ) async { //return lng and long
+  //check if the permission is allowed
     Position position;
     final prefs = await SharedPreferences.getInstance();
-
-    if (hasPermission) {
       position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       await prefs.setDouble('lastLat', position.latitude);
       await prefs.setDouble('lastLong', position.longitude);
       return position;
           return  position;
-      }else{
-      throw Exception('Location permission not granted');
-    }
+
     }
 
   Future<Placemark> getAddressFromLatLng(Position position) async {

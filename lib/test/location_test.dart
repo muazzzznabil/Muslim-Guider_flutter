@@ -40,7 +40,7 @@ class _locationTestState extends State<locationTest> {
   void _getInititalInfo() async{
     geolocator().handleLocationPermission(context);
     bool perm = await geolocator().getLocationPermission();
-    Position position= await geolocator().getCurrentPosition(context);
+    Position position= await geolocator().getCurrentPosition();
     Placemark placemark = await geolocator().getAddressFromLatLng(position);
     // Position lastPosition = await geolocator().getLastKnownLatlng();
     // Placemark lastPlacemark = await geolocator().getLastKnownPlace();
