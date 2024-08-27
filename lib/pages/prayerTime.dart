@@ -398,8 +398,8 @@ class prayerTime extends ConsumerWidget {
               hijriDate: _waktuSolat.hijriDate));
           return current;
         },
-        error: (err, s) => 'error fetching data',
-        loading: () => 'Fetching Data');
+        error: (err, s) => 'error!',
+        loading: () => '...');
 
     return Container(
       //Top Container
@@ -437,13 +437,16 @@ class prayerTime extends ConsumerWidget {
                             shadows: [basicShadow]),
                       ),
                     ),
-                    Text(
-                      currentPrayerName,
-                      style: TextStyle(
-                          color: white,
-                          fontSize: 25,
-                          height: 1.0,
-                          shadows: [basicShadow]),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 60.0),
+                      child: Text(
+                        currentPrayerName,
+                        style: TextStyle(
+                            color: white,
+                            fontSize: 25,
+                            height: 1.0,
+                            shadows: [basicShadow]),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 40.0),

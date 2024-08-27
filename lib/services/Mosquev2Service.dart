@@ -19,7 +19,7 @@ class Mosquev2service{
     if (response.statusCode == 200) {
       print('SUCCESS_--------------------------------------------');
       // Assuming the API returns a JSON array of mosque objects
-      final List<dynamic> result = jsonDecode(response.body);
+      final List<dynamic> result = jsonDecode(response.body)['features'];
       return result.map((e) => MosqueV2.fromJson(e)).toList();
     } else {
       print('errorrrrr');
