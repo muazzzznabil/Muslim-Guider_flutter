@@ -1,5 +1,7 @@
 import 'package:jhijri/jhijri.dart';
 
+import '../pages/prayerTime.dart';
+
 class PrayerTime {
   final String subh;
   final String syuruk;
@@ -38,4 +40,101 @@ class PrayerTime {
     return "${hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(
         2, '0')} ${date.hour >= 12 ? 'p.m.' : 'a.m.'}";
   }
+
+  String determineCurrentPrayer(PrayerTime prayerTime) {
+    // Get current time
+    DateTime now = DateTime.now();
+    // Convert prayer times to DateTime objects
+    DateTime subhTime = _parsePrayerTime(prayerTime.subh);
+    DateTime syurukTime = _parsePrayerTime(prayerTime.syuruk);
+    DateTime zuhrTime = _parsePrayerTime(prayerTime.zuhr);
+    DateTime asrTime = _parsePrayerTime(prayerTime.asr);
+    DateTime maghribTime = _parsePrayerTime(prayerTime.maghrib);
+    DateTime ishaTime = _parsePrayerTime(prayerTime.isha);
+
+    // Determine current prayer
+    if (now.isBefore(subhTime)) {
+      return 'Isha';
+    } else if (now.isBefore(syurukTime)) {
+      return 'Subh';
+    } else if (now.isBefore(zuhrTime)) {
+      return 'Syuruk';
+    } else if (now.isBefore(asrTime)) {
+      return 'Zuhr';
+    } else if (now.isBefore(maghribTime)) {
+      return 'Asr';
+    } else if (now.isBefore(ishaTime)) {
+      return 'Maghrib';
+    } else {
+      return 'Isha';
+    }
+  }
+
+  // String getCurrentPrayerTime(){
+  //   determineCurrentPrayer(prayerTime)
+  //   return 'Error..';
+  // }
+  DateTime _parsePrayerTime(String prayerTime) {
+    final now = DateTime.now();
+    final timeParts = prayerTime.split(' ');
+    final time = timeParts[0].split(':');
+    int hour = int.parse(time[0]);
+    int minute = int.parse(time[1]);
+
+    if (timeParts[1] == 'p.m.' && hour != 12) {
+      hour += 12;
+    } else if (timeParts[1] == 'a.m.' && hour == 12) {
+      hour = 0;
+    }
+
+    return DateTime(hour, minute);
+  }
+
+  String getPrayerTime(PrayerTime prayerTime, String prayerName) {
+    // Return the time string for a given prayer name
+    switch (prayerName.toLowerCase()) {
+      case 'subh':
+        return prayerTime.subh;
+      case 'syuruk':
+        return prayerTime.syuruk;
+      case 'zuhr':
+        return prayerTime.zuhr;
+      case 'asr':
+        return prayerTime.asr;
+      case 'maghrib':
+        return prayerTime.maghrib;
+      case 'isha':
+        return prayerTime.isha;
+      default:
+        return '';
+    }
+  }
+
+  String determineNextPrayer(String currentPrayer) {
+    // Logic to determine the next prayer based on the current prayer
+    switch (currentPrayer.toLowerCase()) {
+      case 'subh':
+        return 'Syuruk';
+      case 'syuruk':
+        return 'Zuhr';
+      case 'zuhr':
+        return 'Asr';
+      case 'asr':
+        return 'Maghrib';
+      case 'maghrib':
+        return 'Isha';
+      case 'isha':
+        return 'Subh';
+      default:
+        return '';
+    }
+  }
+
+  String calculateTimeLeft(String currentPrayerTime) {
+    // Logic to calculate the time left until the next prayer
+    // This will be a time difference between current time and the next prayer time
+    return '1 hour 20 minutes'; // Replace with actual logic
+  }
+
+
 }

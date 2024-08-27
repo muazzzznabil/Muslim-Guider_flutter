@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:jhijri/_src/_jHijri.dart';
 import 'package:muslim_guider_v1/services/geolocator.dart';
 
@@ -30,9 +31,8 @@ class PrayerTimeService {
       final String todayHijri = JHijri.now().toString();
       print(todayHijri);
       List<String> parts = todayHijri.split('-');
-      // int dayInt =  int.parse(parts[0]);
-      // int correctDay = dayInt - 2;
-      // Rearrange and reformat the parts to "year-month-day"
+
+
       String todayHijriDate = "${parts[2]}-${parts[1].padLeft(2, '0')}-${parts[0]}";
       print(todayHijriDate);
       for (var prayerJson in prayers) {
