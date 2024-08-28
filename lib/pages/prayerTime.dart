@@ -155,7 +155,7 @@ class prayerTime extends ConsumerWidget {
                                     return subh;
                                   },
                                   error: (err, s) => ' $err',
-                                  loading: () => 'Fetching Data'),
+                                  loading: () => '..'),
                               style: TextStyle(color: white),
                             )
                           ],
@@ -399,7 +399,23 @@ class prayerTime extends ConsumerWidget {
           return current;
         },
         error: (err, s) => 'error!',
-        loading: () => '...');
+        loading: () => '..');
+    String nextPrayerTime = _waktuSolat.when(
+        data: (_waktuSolat){
+          String next = _waktuSolat.getNextPrayer(
+              PrayerTime(
+              subh: _waktuSolat.subh,
+              syuruk: _waktuSolat.syuruk,
+              zuhr: _waktuSolat.zuhr,
+              asr: _waktuSolat.asr,
+              maghrib: _waktuSolat.maghrib,
+              isha: _waktuSolat.isha,
+              hijriDate: _waktuSolat.hijriDate));
+          return next;
+
+        },
+        error: (err, s) => 'error!',
+        loading: () => '..');
 
     return Container(
       //Top Container
@@ -544,7 +560,7 @@ class prayerTime extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Isha',
+                      nextPrayerTime,
                       style: TextStyle(
                           color: white, fontSize: 19, shadows: [basicShadow]),
                     ),
