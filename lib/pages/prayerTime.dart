@@ -509,9 +509,9 @@ class prayerTime extends ConsumerWidget {
                                   hijriDate: _waktuSolat.hijriDate), currentPrayerName);
                               return current;
                             },
-                            error: (err, s) => 'error fetching data',
-                            loading: () => 'Fetching Data'),
-                        style: TextStyle(
+                            error: (err, s) => 'error',
+                            loading: () => '00:00 am'),
+                        style:  TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w600,
                           color: Colors
@@ -526,7 +526,21 @@ class prayerTime extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      '1 hour 20 minutes',
+                      _waktuSolat.when(
+                          data: (_waktuSolat){
+                            return _waktuSolat.calculateTimeLeft(
+                                nextPrayerTime,
+                                PrayerTime(
+                                subh: _waktuSolat.subh,
+                                syuruk: _waktuSolat.syuruk,
+                                zuhr: _waktuSolat.zuhr,
+                                asr: _waktuSolat.asr,
+                                maghrib: _waktuSolat.maghrib,
+                                isha: _waktuSolat.isha,
+                                hijriDate: _waktuSolat.hijriDate));
+                          },
+                          error: (err,s) => 'error',
+                          loading: ()=> '0 hour 0 minutes'),
                       style: TextStyle(
                           color: white,
                           fontSize: 13,
@@ -565,7 +579,20 @@ class prayerTime extends ConsumerWidget {
                           color: white, fontSize: 19, shadows: [basicShadow]),
                     ),
                     Text(
-                      '08:40 pm',
+                      _waktuSolat.when(
+                          data: (_waktuSolat) {
+                            String current = _waktuSolat.getPrayerTime(PrayerTime(
+                                subh: _waktuSolat.subh,
+                                syuruk: _waktuSolat.syuruk,
+                                zuhr: _waktuSolat.zuhr,
+                                asr: _waktuSolat.asr,
+                                maghrib: _waktuSolat.maghrib,
+                                isha: _waktuSolat.isha,
+                                hijriDate: _waktuSolat.hijriDate), nextPrayerTime);
+                            return current;
+                          },
+                          error: (err, s) => 'error fetching data',
+                          loading: () => '00:00 pm'),
                       style: TextStyle(
                           color: white, fontSize: 22, shadows: [basicShadow]),
                     )

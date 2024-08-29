@@ -73,10 +73,6 @@ class PrayerTime {
     }
   }
 
-  // String getCurrentPrayerTime(){
-  //   determineCurrentPrayer(prayerTime)
-  //   return 'Error..';
-  // }
   DateTime _parsePrayerTime(String prayerTime) {
     final now = DateTime.now();
     final timeParts = prayerTime.split(' ');
@@ -120,6 +116,8 @@ class PrayerTime {
     DateTime subhTime = _parsePrayerTime(prayerTime.subh);
     print('Subuh Converted time:---------------------------------------');
     print(_parsePrayerTime(prayerTime.subh));
+    print('Subuh Converted time String:---------------------------------------');
+    print(_parsePrayerTime(prayerTime.subh.toString()));
     DateTime syurukTime = _parsePrayerTime(prayerTime.syuruk);
     DateTime zuhrTime = _parsePrayerTime(prayerTime.zuhr);
     DateTime asrTime = _parsePrayerTime(prayerTime.asr);
@@ -145,8 +143,25 @@ class PrayerTime {
 
   }
 
-  String calculateTimeLeft(String currentPrayerTime) {
-    return '1 hour 20 minutes'; // Replace with actual logic
+  String calculateTimeLeft(String nextPrayerTime,PrayerTime pray) {
+    DateTime now = DateTime.now();
+    print('------------------now-----------------------');
+    print(now);
+    print('------------------conv--------');
+    DateTime prayerTime = _parsePrayerTime(getPrayerTime(pray, nextPrayerTime));
+    print(prayerTime);
+    // DateTime prayerTime = DateTime.parse(prayTime);
+
+    Duration diff =  prayerTime.difference(now); //bug here where the time need to be time left not time from
+
+    if (diff.isNegative) {
+      diff = now.difference(prayerTime);
+    }
+
+    int hours = diff.inHours;
+    int minutes = diff.inMinutes % 60;
+
+    return '$hours hours $minutes minutes';
   }
 
 
