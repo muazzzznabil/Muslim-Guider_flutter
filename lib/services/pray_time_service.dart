@@ -13,7 +13,7 @@ import '../model/waktuSolat_model.dart';
 class PrayerTimeService {
 
   final String zone = 'WLY01';
-  final _geolocator = geolocator();
+  final _geolocator = geolocatorFinder();
 
   Future<PrayerTime> getTodayPrayerTime() async {
 

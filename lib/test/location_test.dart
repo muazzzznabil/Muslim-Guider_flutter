@@ -38,10 +38,10 @@ class _locationTestState extends State<locationTest> {
   }
 
   void _getInititalInfo() async{
-    geolocator().handleLocationPermission(context);
-    bool perm = await geolocator().getLocationPermission();
-    Position position= await geolocator().getCurrentPosition();
-    Placemark placemark = await geolocator().getAddressFromLatLng(position);
+    geolocatorFinder().handleLocationPermission(context);
+    bool perm = await geolocatorFinder().getLocationPermission();
+    Position position= await geolocatorFinder().getCurrentPosition();
+    Placemark placemark = await geolocatorFinder().getAddressFromLatLng(position);
     // Position lastPosition = await geolocator().getLastKnownLatlng();
     // Placemark lastPlacemark = await geolocator().getLastKnownPlace();
 
@@ -86,8 +86,8 @@ class _locationTestState extends State<locationTest> {
   }
 
   void getLastLocation() async{
-    Position lastPosition = await geolocator().getLastKnownLatlng();
-    Placemark lastPlacemark = await geolocator().getLastKnownPlace();
+    Position lastPosition = await geolocatorFinder().getLastKnownLatlng();
+    Placemark lastPlacemark = await geolocatorFinder().getLastKnownPlace();
 
     lastLatStat = lastPosition.latitude.toString();
     lastLngStat = lastPosition.longitude.toString();

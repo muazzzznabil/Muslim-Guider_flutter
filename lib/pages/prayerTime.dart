@@ -18,7 +18,7 @@ class prayerTime extends ConsumerWidget {
       offset: Offset(4, 4));
   String city = 'loading...';
 
-  final _geolocator = geolocator();
+  final _geolocator = geolocatorFinder();
 
   void _getInititalInfo() async {
     Position position = await _geolocator.getCurrentPosition();
@@ -609,20 +609,20 @@ class prayerTime extends ConsumerWidget {
   SearchBar buildSearchBar() {
     return SearchBar(
       leading: Padding(
-        padding: const EdgeInsets.only(bottom: 6.0, left: 8),
-        child: SvgPicture.asset(
-          'assets/icons/map-pin-black.svg',
-          width: 30,
+        padding: const EdgeInsets.all( 8),
+        child:  Icon(
+          Icons.search,
+          size: 34,
         ),
       ),
       hintText: 'Search Your City..',
       trailing: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(
-            Icons.search,
-            size: 34,
-          ),
+          padding: const EdgeInsets.only (right: 8.0),
+            child:Icon(
+              Icons.pin_drop_outlined,
+              size: 34,
+            )
         )
       ],
     );
