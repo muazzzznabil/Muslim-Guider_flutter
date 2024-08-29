@@ -18,7 +18,7 @@ class Mosquev2service{
     final String mapBox = 'https://api.mapbox.com/geocoding/v5/mapbox.places/mosque.json?proximity=$long,$lat&access_token=$key';
     final String foursq = '';
     Response response = await get(Uri.parse(mapBox));
-    print('SHOUDL IN HERE---------------------------------');
+    print('SHOUDLd IN HERE---------------------------------');
     // Check response status
     if (response.statusCode == 200) {
       print('SUCCESS_--------------------------------------------');
