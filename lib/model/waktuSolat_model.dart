@@ -73,6 +73,8 @@ class PrayerTime {
     }
   }
 
+
+  //todo: convert the time to 24 hours first.
   DateTime _parsePrayerTime(String prayerTime) {
     final now = DateTime.now();
     final timeParts = prayerTime.split(' ');

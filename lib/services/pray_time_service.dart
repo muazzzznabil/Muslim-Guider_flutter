@@ -22,9 +22,8 @@ class PrayerTimeService {
 
     String  city = placemark.locality.toString();
 
-    final zone = _zoneCode(city);
-    print(city);
-    print(zone);
+    final zone = zoneCode(city);
+
     final response = await http.get(Uri.parse('https://api.waktusolat.app/v2/solat/$zone'));
     if (response.statusCode == 200) {
       final List<dynamic> prayers = jsonDecode(response.body)['prayers'];
@@ -52,7 +51,7 @@ class PrayerTimeService {
 }
 final waktuSolat_Provider = Provider<PrayerTimeService>((ref)=>PrayerTimeService());
 
-String _zoneCode(String placeName){
+String zoneCode(String placeName){
 
   String place = placeName.toLowerCase();
   // Johor
@@ -91,7 +90,7 @@ String _zoneCode(String placeName){
   }
 
   // Melaka
-  else if (['seluruh negeri melaka'].contains(place)) {
+  else if (['melaka'].contains(place)) {
     return 'MLK01';
   }
 
@@ -137,17 +136,17 @@ String _zoneCode(String placeName){
   }
 
   // Perlis
-  else if (['seluruh negeri perlis'].contains(place)) {
+  else if (['perlis'].contains(place)) {
     return 'PLS01';
   }
 
   // Pulau Pinang
-  else if (['seluruh negeri pulau pinang'].contains(place)) {
+  else if (['pulau pinang'].contains(place)) {
     return 'PNG01';
   }
 
   // Sabah
-  else if (['bahagian sandakan (timur)', 'bukit garam', 'semawang', 'temanggong', 'tambisan', 'bandar sandakan', 'sukau'].contains(place)) {
+  else if (['sandakan', 'bukit garam', 'semawang', 'temanggong', 'tambisan', 'bandar sandakan', 'sukau'].contains(place)) {
     return 'SBH01';
   } else if (['beluran', 'telupid', 'pinangah', 'terusan', 'kuamut', 'bahagian sandakan (barat)'].contains(place)) {
     return 'SBH02';

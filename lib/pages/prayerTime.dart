@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:muslim_guider_v1/model/cityList.dart';
 import 'package:muslim_guider_v1/model/waktuSolat_model.dart';
+import 'package:muslim_guider_v1/services/pray_time_service.dart';
 
 import '../dataProvider/waktu_solat_provider.dart';
 import '../services/geolocator.dart';
@@ -33,7 +36,7 @@ class prayerTime extends ConsumerWidget {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Color(0xff67987c),
-        appBar: appBar(),
+        appBar: appBar(context),
         body: RefreshIndicator(
           onRefresh: () async {
             ref.refresh(waktuSolatProvider);
@@ -47,7 +50,7 @@ class prayerTime extends ConsumerWidget {
               child: ListView(
                 children: [
                   SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +60,7 @@ class prayerTime extends ConsumerWidget {
                           SizedBox(
                             //Search Bar
                             width: MediaQuery.of(context).size.width * 0.9,
-                            child: buildSearchBar(),
+                            // child: buildSearchBar(),
                           ),
                           SizedBox(
                             height: 20,
@@ -81,7 +84,7 @@ class prayerTime extends ConsumerWidget {
     return Container(
       //bottom section
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height * 0.54,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
@@ -420,7 +423,7 @@ class prayerTime extends ConsumerWidget {
     return Container(
       //Top Container
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.2,
+      height: MediaQuery.of(context).size.height * 0.25,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
@@ -432,8 +435,10 @@ class prayerTime extends ConsumerWidget {
           color: Color(0xffA6C0B3).withOpacity(0.6)),
       child: Padding(
         padding:
+        // const EdgeInsets.all(0),
             const EdgeInsets.only(left: 20, right: 25, top: 8.0, bottom: 8),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
               //top
@@ -480,7 +485,7 @@ class prayerTime extends ConsumerWidget {
                 Column(
                   children: [
                     SizedBox(
-                      height: 8,
+                      height: 6,
                     ),
                     ShaderMask(
                       blendMode: BlendMode.srcIn,
@@ -606,6 +611,7 @@ class prayerTime extends ConsumerWidget {
     );
   }
 
+
   SearchBar buildSearchBar() {
     return SearchBar(
       leading: Padding(
@@ -625,11 +631,13 @@ class prayerTime extends ConsumerWidget {
             )
         )
       ],
+      // onChanged: ,
     );
   }
 
-  AppBar appBar() {
+  AppBar appBar(BuildContext context) {
     return AppBar(
+      iconTheme: IconThemeData(color: white),
       backgroundColor: Colors.transparent,
       title: Text(
         'Prayer Time',
@@ -644,6 +652,94 @@ class prayerTime extends ConsumerWidget {
             ]),
       ),
       centerTitle: true,
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: IconButton(
+          onPressed: (){
+            showSearch(
+            context: context,
+            delegate: CustomSearchDelegate(),);
+            },
+          icon :  Icon(Icons.search_rounded,size: 28,color: white,),
+        ),
+        )
+      ],
     );
   }
+
+}
+
+class CustomSearchDelegate extends SearchDelegate{
+
+  List<String> searchCity = CityZone.getCities();
+
+  @override
+  List<Widget> buildActions(BuildContext context){
+    return[
+      IconButton(
+    onPressed: (){
+      query = '';
+    },
+      icon: const Icon(Icons.clear),
+    )
+    ];
+  }
+  @override
+  Widget buildLeading(BuildContext context){
+    return IconButton(
+        onPressed: (){
+          close(context, null);
+        },
+        icon: Icon(Icons.arrow_back)
+    );
+  }
+  @override
+  Widget buildResults(BuildContext context){
+    List<String> matchQuery = [];
+    for(var city in searchCity){
+      if(city.toLowerCase().contains(query.toLowerCase())){
+        matchQuery.add(city);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context,index){
+        var result = matchQuery[index];
+        return InkWell(
+            onTap: (){
+              print(result);
+            },
+          child: ListTile(
+            title: Text(result),
+          ),
+        );
+      },
+    );
+  }
+  @override
+  Widget buildSuggestions(BuildContext context){
+    List<String> matchQuery = [];
+    for(var city in searchCity){
+      if(city.toLowerCase().contains(query.toLowerCase())){
+        matchQuery.add(city);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context,index){
+        var result = matchQuery[index];
+        return InkWell(
+          onTap: (){
+            print(result);
+          },
+          child: ListTile(
+            title: Text(result),
+          ),
+        );
+      },
+    );
+  }
+
+
 }
