@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:jhijri/jhijri.dart';
 
 import '../pages/prayerTime.dart';
@@ -10,6 +12,7 @@ class PrayerTime {
   final String maghrib;
   final String isha;
   final String hijriDate;
+  final int day;
 
   PrayerTime({
     required this.subh,
@@ -19,6 +22,7 @@ class PrayerTime {
     required this.maghrib,
     required this.isha,
     required this.hijriDate,
+    required this.day,
   });
 
   factory PrayerTime.fromJson(Map<String, dynamic> json) {
@@ -30,6 +34,7 @@ class PrayerTime {
       maghrib: _formatTime(json['maghrib']),
       isha: _formatTime(json['isha']),
       hijriDate: json['hijri'],
+      day:  json['day']
 
     );
   }
@@ -47,7 +52,6 @@ class PrayerTime {
     DateTime now = DateTime.now();
     // Convert prayer times to DateTime objects
     DateTime subhTime = _parsePrayerTime(prayerTime.subh);
-    print('Subuh Converted time:---------------------------------------');
     print(_parsePrayerTime(prayerTime.subh));
     DateTime syurukTime = _parsePrayerTime(prayerTime.syuruk);
     DateTime zuhrTime = _parsePrayerTime(prayerTime.zuhr);

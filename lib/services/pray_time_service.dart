@@ -22,8 +22,9 @@ class PrayerTimeService {
 
     String  city = placemark.locality.toString();
 
-    final zone = zoneCode(city);
-
+    final zone = _zoneCode(city);
+    print(city);
+    print(zone);
     final response = await http.get(Uri.parse('https://api.waktusolat.app/v2/solat/$zone'));
     if (response.statusCode == 200) {
       final List<dynamic> prayers = jsonDecode(response.body)['prayers'];
@@ -33,25 +34,26 @@ class PrayerTimeService {
 
 
       String todayHijriDate = "${parts[2]}-${parts[1].padLeft(2, '0')}-${parts[0]}";
+      int dayNow = DateTime.now().day;
       print(todayHijriDate);
       for (var prayerJson in prayers) {
         PrayerTime prayerTime = PrayerTime.fromJson(prayerJson);
-        if (prayerTime.hijriDate == todayHijriDate) {
-          print(prayerTime.hijriDate);
-          print(todayHijriDate);
+        if (prayerTime.day == dayNow) {
+          print(prayerTime.day);
+          print(dayNow);
           return prayerTime;
         }
       }
     } else {
       throw Exception("Failed to load prayer times");
     }
-
+    print('Failed to fetch prayer times with status code: ${response.statusCode}');
     return Future.error('error fetching data');
   }
 }
 final waktuSolat_Provider = Provider<PrayerTimeService>((ref)=>PrayerTimeService());
 
-String zoneCode(String placeName){
+String _zoneCode(String placeName){
 
   String place = placeName.toLowerCase();
   // Johor
@@ -90,7 +92,7 @@ String zoneCode(String placeName){
   }
 
   // Melaka
-  else if (['melaka'].contains(place)) {
+  else if (['seluruh negeri melaka'].contains(place)) {
     return 'MLK01';
   }
 
@@ -136,17 +138,17 @@ String zoneCode(String placeName){
   }
 
   // Perlis
-  else if (['perlis'].contains(place)) {
+  else if (['seluruh negeri perlis'].contains(place)) {
     return 'PLS01';
   }
 
   // Pulau Pinang
-  else if (['pulau pinang'].contains(place)) {
+  else if (['seluruh negeri pulau pinang'].contains(place)) {
     return 'PNG01';
   }
 
   // Sabah
-  else if (['sandakan', 'bukit garam', 'semawang', 'temanggong', 'tambisan', 'bandar sandakan', 'sukau'].contains(place)) {
+  else if (['bahagian sandakan (timur)', 'bukit garam', 'semawang', 'temanggong', 'tambisan', 'bandar sandakan', 'sukau'].contains(place)) {
     return 'SBH01';
   } else if (['beluran', 'telupid', 'pinangah', 'terusan', 'kuamut', 'bahagian sandakan (barat)'].contains(place)) {
     return 'SBH02';
@@ -217,6 +219,3 @@ String zoneCode(String placeName){
   // Default case if no match
   return 'WLY01';
 }
-
-
-

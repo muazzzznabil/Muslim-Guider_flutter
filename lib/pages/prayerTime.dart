@@ -157,7 +157,7 @@ class prayerTime extends ConsumerWidget {
                                     // final subhTime = waktuSolat. ? subh : 'N/A';
                                     return subh;
                                   },
-                                  error: (err, s) => ' $err',
+                                  error: (err, s) => '$err',
                                   loading: () => '..'),
                               style: TextStyle(color: white),
                             )
@@ -363,8 +363,6 @@ class prayerTime extends ConsumerWidget {
                               _waktuSolat.when(
                                   data: (_waktuSolat) {
                                     String subh = _waktuSolat.isha;
-
-                                    // final subhTime = _waktuSolat.isNotEmpty ? subh : 'N/A';
                                     return subh;
                                   },
                                   error: (err, s) => 'error fetching data',
@@ -398,7 +396,8 @@ class prayerTime extends ConsumerWidget {
               asr: _waktuSolat.asr,
               maghrib: _waktuSolat.maghrib,
               isha: _waktuSolat.isha,
-              hijriDate: _waktuSolat.hijriDate));
+              hijriDate: _waktuSolat.hijriDate,
+              day: _waktuSolat.day));
           return current;
         },
         error: (err, s) => 'error!',
@@ -407,13 +406,14 @@ class prayerTime extends ConsumerWidget {
         data: (_waktuSolat){
           String next = _waktuSolat.getNextPrayer(
               PrayerTime(
-              subh: _waktuSolat.subh,
-              syuruk: _waktuSolat.syuruk,
-              zuhr: _waktuSolat.zuhr,
-              asr: _waktuSolat.asr,
-              maghrib: _waktuSolat.maghrib,
-              isha: _waktuSolat.isha,
-              hijriDate: _waktuSolat.hijriDate));
+                  subh: _waktuSolat.subh,
+                  syuruk: _waktuSolat.syuruk,
+                  zuhr: _waktuSolat.zuhr,
+                  asr: _waktuSolat.asr,
+                  maghrib: _waktuSolat.maghrib,
+                  isha: _waktuSolat.isha,
+                  hijriDate: _waktuSolat.hijriDate,
+                  day: _waktuSolat.day));
           return next;
 
         },
@@ -511,7 +511,8 @@ class prayerTime extends ConsumerWidget {
                                   asr: _waktuSolat.asr,
                                   maghrib: _waktuSolat.maghrib,
                                   isha: _waktuSolat.isha,
-                                  hijriDate: _waktuSolat.hijriDate), currentPrayerName);
+                                  hijriDate: _waktuSolat.hijriDate,
+                                  day: _waktuSolat.day), currentPrayerName);
                               return current;
                             },
                             error: (err, s) => 'error',
@@ -536,13 +537,14 @@ class prayerTime extends ConsumerWidget {
                             return _waktuSolat.calculateTimeLeft(
                                 nextPrayerTime,
                                 PrayerTime(
-                                subh: _waktuSolat.subh,
-                                syuruk: _waktuSolat.syuruk,
-                                zuhr: _waktuSolat.zuhr,
-                                asr: _waktuSolat.asr,
-                                maghrib: _waktuSolat.maghrib,
-                                isha: _waktuSolat.isha,
-                                hijriDate: _waktuSolat.hijriDate));
+                                    subh: _waktuSolat.subh,
+                                    syuruk: _waktuSolat.syuruk,
+                                    zuhr: _waktuSolat.zuhr,
+                                    asr: _waktuSolat.asr,
+                                    maghrib: _waktuSolat.maghrib,
+                                    isha: _waktuSolat.isha,
+                                    hijriDate: _waktuSolat.hijriDate,
+                                    day: _waktuSolat.day));
                           },
                           error: (err,s) => 'error',
                           loading: ()=> '0 hour 0 minutes'),
@@ -593,7 +595,8 @@ class prayerTime extends ConsumerWidget {
                                 asr: _waktuSolat.asr,
                                 maghrib: _waktuSolat.maghrib,
                                 isha: _waktuSolat.isha,
-                                hijriDate: _waktuSolat.hijriDate), nextPrayerTime);
+                                hijriDate: _waktuSolat.hijriDate,
+                                day: _waktuSolat.day), nextPrayerTime);
                             return current;
                           },
                           error: (err, s) => 'error fetching data',
