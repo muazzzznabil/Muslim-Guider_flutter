@@ -31,7 +31,7 @@ class _tasbihCounterState extends State<tasbihCounter> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
           color: Color(0xffffffff),
-          height: screenHeight * 0.448,
+          height: screenHeight * 0.4487,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
