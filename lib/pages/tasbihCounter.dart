@@ -15,7 +15,7 @@ class _tasbihCounterState extends State<tasbihCounter> {
     return Scaffold(
       backgroundColor: Color(0xff699b7f),
       appBar: appBar(),
-      body: ListView(
+      body: Column(
         children: [
           //Container tasbih Counter
           _countTasbih(),
@@ -31,7 +31,7 @@ class _tasbihCounterState extends State<tasbihCounter> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
           color: Color(0xffffffff),
-          height: 420,
+          height: screenHeight * 0.448,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -41,7 +41,7 @@ class _tasbihCounterState extends State<tasbihCounter> {
                   //Container untuk button record
                   GestureDetector(
                     onTap: (){
-                      Navigator.pushNamed(context, '/tasbihRecords');
+                      Navigator.pushNamed(context,'/tasbihRecords');
                     },
                     child: Container(
                       child: Row(
