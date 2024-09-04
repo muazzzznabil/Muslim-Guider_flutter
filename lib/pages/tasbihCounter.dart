@@ -13,16 +13,29 @@ class _tasbihCounterState extends State<tasbihCounter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff699b7f),
+      // backgroundColor: Color(0xff699b7f),
       appBar: appBar(),
-      body: Column(
-        children: [
-          //Container tasbih Counter
-          _countTasbih(),
-          //Container untuk record dan set goal
-          _recordsAndGoals(),
-          //Container untuk button tambah
-        ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xff699b7f),
+              Color(0xffffffff),
+            ],
+            stops: [0.0, 0.7], // 70% stop for the gradient
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Column(
+          children: [
+            //Container tasbih Counter
+            _countTasbih(),
+            //Container untuk record dan set goal
+            _recordsAndGoals(),
+            //Container untuk button tambah
+          ],
+        ),
       ),
     );
   }
@@ -218,7 +231,7 @@ class _tasbihCounterState extends State<tasbihCounter> {
   //AppBar
   AppBar appBar() {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Color(0xff699b7f),
       centerTitle: true,
       title: const Text(
         'Tasbih Counter',
