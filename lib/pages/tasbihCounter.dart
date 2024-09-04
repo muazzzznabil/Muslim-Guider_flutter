@@ -22,7 +22,7 @@ class _tasbihCounterState extends State<tasbihCounter> {
               Color(0xff699b7f),
               Color(0xffffffff),
             ],
-            stops: [0.0, 0.7], // 70% stop for the gradient
+            stops: [0.0, 0.80], // 70% stop for the gradient
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
