@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/homepage':(context) => HomePage(),
         '/mosqueLocator':(context)=> mosqueLocator(),
-        '/tasbihCounter':(context)=> tasbihCounter(),
+        '/tasbihCounter':(context)=> TasbihCounter(),
         '/prayerTime':(context)=> prayerTime(),
         '/tasbihRecords':(context)=> tasbihRecords(),
         '/about':(context) => aboutPage(),

@@ -743,6 +743,4 @@ class CustomSearchDelegate extends SearchDelegate{
       },
     );
   }
-
-
 }

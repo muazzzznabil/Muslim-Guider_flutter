@@ -1,34 +1,16 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class tasbihModel{
+import '../dataProvider/counter_provider.dart';
 
-   int _count;
-   String _date;
-   String _note;
+class TasbihRecord {
+  final int goal;
+  final int count;
+  final DateTime date;
 
-   tasbihModel(
-       this._count,
-       this._date,
-       this._note
-       );
-
-  String get note => _note;
-
-  set note(String value) {
-    _note = value;
-  }
-
-  String get date => _date;
-
-  set date(String value) {
-    _date = value;
-  }
-
-  int get count => _count;
-
-  set count(int value) {
-    _count = value;
-  }
-
-
-
+  TasbihRecord({
+    required this.goal,
+    required this.count,
+    required this.date,
+  });
 }
+

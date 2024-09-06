@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:muslim_guider_v1/dataProvider/counter_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muslim_guider_v1/pages/TasbihRecords.dart';
 
+import '../model/tasbih_model.dart';
 
-class tasbihCounter extends StatefulWidget {
-  const tasbihCounter({super.key});
-
+class TasbihCounter extends ConsumerWidget {
   @override
-  State<tasbihCounter> createState() => _tasbihCounterState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Watch the state (which is a list of TasbihRecord)
+    final tasbihRecords = ref.watch(tasbihProvider);
+    final currentCount = ref.watch(tasbihProvider.notifier).currentCount;
+    // Watch the notifier to listen for state changes (e.g., the count)
+    final tasbih = ref.watch(tasbihProvider.notifier);
 
-class _tasbihCounterState extends State<tasbihCounter> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0xff699b7f),
       appBar: appBar(),
       body: Container(
         decoration: BoxDecoration(
@@ -22,213 +24,175 @@ class _tasbihCounterState extends State<tasbihCounter> {
               Color(0xff699b7f),
               Color(0xffffffff),
             ],
-            stops: [0.0, 0.80], // 70% stop for the gradient
+            stops: [0.0, 0.80],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
         ),
         child: Column(
           children: [
-            //Container tasbih Counter
-            _countTasbih(),
-            //Container untuk record dan set goal
-            _recordsAndGoals(),
-            //Container untuk button tambah
+            // Update this to watch the state and rebuild when the count changes
+            _countTasbih(context,currentCount,tasbih),
+            _recordsAndGoals(context, tasbih),
           ],
         ),
       ),
     );
   }
 
-  Container _recordsAndGoals() {
-    double screenHeight = MediaQuery.of(context).size.height;
+  Container _countTasbih(BuildContext context, int tasbihCount, TasbihProvider tasbih) {
+    // Fetch current count from TasbihProvider and convert to string
+    String countString = tasbihCount.toString();
+
     return Container(
-          color: Color(0xffffffff),
-          height: screenHeight * 0.4487,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  //Container untuk button record
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context,'/tasbihRecords');
-                    },
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SvgPicture.asset(
-                              'assets/icons/records.svg'
-                          ),
-                          Center(
-                            child: Text(
-                              'Records',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff000000)
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      height: 76,
-                      width: 127,
-                      decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color(0xff000000).withOpacity(0.25),
-                              offset: const Offset(1, 1),
-                              blurRadius: 7.3,
-                              spreadRadius: 0
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
-
-
-                  //Container untuk button set goal
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context, '/contactUs');
-                    },
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SvgPicture.asset(
-                              'assets/icons/goal.svg'
-                          ),
-                          Center(
-                            child: Text(
-                              'Set Goal',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff000000),
-                                  fontSize: 16
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      height: 76,
-                      width: 127,
-                      decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color(0xff000000).withOpacity(0.25),
-                              offset: const Offset(1, 1),
-                              blurRadius: 7.3,
-                              spreadRadius: 0
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
-
-                ],
+              Text(
+                countString,
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 64,
+                    color: Color(0xffffffff)),
               ),
-
-              //Button untuk counting
-              Row(
+              Text(
+                'count',
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xffffffff)),
+              ),
+            ],
+          ),
+          SizedBox(
+            width: 125,
+            child: TextButton(
+              onPressed: () {
+                tasbih.resetCounter(); // Reset counter
+              },
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: (){},
-                    child: SvgPicture.asset(
-                      'assets/icons/add-square-button.svg'
+                  Text(
+                    'Reset',
+                    style: TextStyle(
+                      fontSize: 15,
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
-        );
+              style: TextButton.styleFrom(
+                foregroundColor: Color(0xffffffff),
+                backgroundColor: Color(0xff8cbe9e),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 30,
+                ),
+                textStyle: TextStyle(fontSize: 13),
+              ),
+            ),
+          )
+        ],
+      ),
+      height: 350,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xff345454).withOpacity(0.6),
+            Color(0xffffffff).withOpacity(0)
+          ],
+        ),
+        borderRadius: BorderRadius.circular(40),
+      ),
+    );
   }
 
-  Container _countTasbih() {
+  Container _recordsAndGoals(BuildContext context, TasbihProvider tasbih) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-          child: Column(
+      color: Color(0xffffffff),
+      height: screenHeight * 0.4487,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Column(
-                children: [
-                  Text(
-                    '6572',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 64,
-                      color: Color(0xffffffff)
-                    ),
-                  ),
-                  Text(
-                    'count',
-                    style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xffffffff)
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(
-                width: 125,
-                child: TextButton(
-                  onPressed: (){},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                          'Reset',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-                      // SvgPicture.asset(
-                      //   'assets/icons/reset.svg'
-                      // ),
-                    ],
-                  ),
-                  style: TextButton.styleFrom(
-                    foregroundColor: Color(0xffffffff),
-                    backgroundColor: Color(0xff8cbe9e),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 30,
-                    ),
-                    textStyle: TextStyle(
-                      fontSize: 13
-                    )
-                  ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/tasbihRecords');
+                },
+                child: _buttonContainer(
+                  iconPath: 'assets/icons/records.svg',
+                  label: 'Records',
                 ),
-              )
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/setGoal');
+                },
+                child: _buttonContainer(
+                  iconPath: 'assets/icons/goal.svg',
+                  label: 'Set Goal',
+                ),
+              ),
             ],
           ),
-          height: 350,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xff345454).withOpacity(0.6),
-                Color(0xffffffff).withOpacity(0)
-              ],
-            ),
-            borderRadius: BorderRadius.circular(40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  tasbih.incrementCount(); // Increment the count
+                },
+                child: SvgPicture.asset('assets/icons/add-square-button.svg'),
+              ),
+            ],
           ),
-        );
+        ],
+      ),
+    );
   }
 
-  //AppBar
+  Container _buttonContainer({required String iconPath, required String label}) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SvgPicture.asset(iconPath),
+          Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Color(0xff000000),
+              ),
+            ),
+          ),
+        ],
+      ),
+      height: 76,
+      width: 127,
+      decoration: BoxDecoration(
+        color: Color(0xffffffff),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0xff000000).withOpacity(0.25),
+            offset: const Offset(1, 1),
+            blurRadius: 7.3,
+            spreadRadius: 0,
+          )
+        ],
+        borderRadius: BorderRadius.circular(20),
+      ),
+    );
+  }
+
   AppBar appBar() {
     return AppBar(
       backgroundColor: Color(0xff699b7f),
@@ -238,7 +202,7 @@ class _tasbihCounterState extends State<tasbihCounter> {
         style: TextStyle(
           fontWeight: FontWeight.w500,
           fontSize: 24,
-          color: Colors.white, //Kena tukar dalam hexadecimal
+          color: Colors.white,
         ),
       ),
     );
