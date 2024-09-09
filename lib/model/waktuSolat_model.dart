@@ -170,5 +170,11 @@ class PrayerTime {
     return '$hours hours $minutes minutes';
   }
 
+  List<String> onlyTime(String prayerTime){
+    List<String>  time =  prayerTime.split(' ');
+
+    return time;
+  }
+
 
 }

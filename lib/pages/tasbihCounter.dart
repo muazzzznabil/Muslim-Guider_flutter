@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:muslim_guider_v1/dataProvider/counter_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muslim_guider_v1/pages/TasbihRecords.dart';
-
+import 'package:flutter_popup/flutter_popup.dart';
 import '../model/tasbih_model.dart';
 
 class TasbihCounter extends ConsumerWidget {
@@ -31,8 +31,7 @@ class TasbihCounter extends ConsumerWidget {
         ),
         child: Column(
           children: [
-            // Update this to watch the state and rebuild when the count changes
-            _countTasbih(context,currentCount,tasbih),
+            _countTasbih(context, currentCount, tasbih),
             _recordsAndGoals(context, tasbih),
           ],
         ),
@@ -40,7 +39,8 @@ class TasbihCounter extends ConsumerWidget {
     );
   }
 
-  Container _countTasbih(BuildContext context, int tasbihCount, TasbihProvider tasbih) {
+  Container _countTasbih(
+      BuildContext context, int tasbihCount, TasbihProvider tasbih) {
     // Fetch current count from TasbihProvider and convert to string
     String countString = tasbihCount.toString();
 
@@ -132,14 +132,16 @@ class TasbihCounter extends ConsumerWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/setGoal');
-                },
-                child: _buttonContainer(
-                  iconPath: 'assets/icons/goal.svg',
-                  label: 'Set Goal',
-                ),
-              ),
+                  onTap: () {
+
+                  },
+                  child: CustomPopup(
+                      content: _Slider(),
+                      child:_buttonContainer(
+                        iconPath: 'assets/icons/goal.svg',
+                        label: 'Set Goal',
+                      )
+                  )),
             ],
           ),
           Row(
@@ -147,7 +149,7 @@ class TasbihCounter extends ConsumerWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  tasbih.incrementCount(); // Increment the count
+                  tasbih.incrementCount(context); // Increment the count
                 },
                 child: SvgPicture.asset('assets/icons/add-square-button.svg'),
               ),
@@ -158,7 +160,8 @@ class TasbihCounter extends ConsumerWidget {
     );
   }
 
-  Container _buttonContainer({required String iconPath, required String label}) {
+  Container _buttonContainer(
+      {required String iconPath, required String label}) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -204,6 +207,72 @@ class TasbihCounter extends ConsumerWidget {
           fontSize: 24,
           color: Colors.white,
         ),
+      ),
+    );
+  }
+}
+
+
+
+
+class _Slider extends StatefulWidget {
+  const _Slider();
+
+  @override
+  State<_Slider> createState() => __SliderState();
+}
+
+class __SliderState extends State<_Slider> {
+  double progress = 0.5;
+  int goalVal = 0;
+
+  Shadow basicShadow = Shadow(
+      color: Colors.black.withOpacity(0.25),
+      blurRadius: 10,
+      offset: Offset(4, 4));
+
+  void setValue(int val) {
+    val = this.goalVal;
+  }
+
+  int getValue() => this.goalVal;
+
+  @override
+  Widget build(BuildContext context) {
+    int valSlide = 0;
+
+    setState(() {
+      valSlide = getValue();
+    });
+
+    return SizedBox(
+      width: 300,
+      height: 100,
+      child: Column(
+        children: [
+          Slider(
+            value: progress,
+            onChanged: (value) {
+              setState(() {
+                progress = value;
+                double progressVal = value * 1000;
+                goalVal = progressVal.round();
+                TasbihProvider().setGoal(progressVal.round());
+              });
+              double progressVal = value * 1000;
+              print(progressVal.round());
+            },
+          ),
+
+          Text(
+              '$goalVal',
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.w500,
+                shadows: [basicShadow]
+              ),
+          )
+        ],
       ),
     );
   }

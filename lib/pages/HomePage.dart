@@ -3,14 +3,22 @@ import 'dart:ui';
 
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:muslim_guider_v1/pages/mosqueLocator.dart';
 import 'package:muslim_guider_v1/pages/prayerTime.dart';
 import 'package:muslim_guider_v1/pages/setting.dart';
 import 'package:muslim_guider_v1/pages/tasbihCounter.dart';
+
+import '../dataProvider/waktu_solat_provider.dart';
+import '../model/waktuSolat_model.dart';
+import '../services/geolocator.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -65,6 +73,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
+
   Row homepageBody() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +82,7 @@ class _HomePageState extends State<HomePage> {
         Column(
           children: [
             SizedBox(height: 30,),
-            prayerTimeWidget(),
+            prayTimeWidget(),
             SizedBox(height: 30,),
             tasbihCounterWidget(),
             SizedBox(height: 30,),
@@ -80,196 +90,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ],
-    );
-  }
-
-  GestureDetector prayerTimeWidget() {
-    // double widgetWidth = MediaQuery.of(context).size.width*0.9;
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/prayerTime');
-      },
-      child: Container(
-        height: 200,
-        width: widgetWidth(),
-        decoration: BoxDecoration(
-            // color: Colors.blue,
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xff73ABA9),
-                Color(0xff628E8B),
-                Color(0xff203935).withOpacity(0.94)
-              ],
-            ),
-            borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 26.0),
-                              child: Text.rich(
-                                  //Now Zuhr
-                                  textAlign: TextAlign.start,
-                                  TextSpan(
-                                      text: 'Now : ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          color: Color(0xffF5F2F2),
-                                          shadows: [
-                                            Shadow(
-                                                color: Colors.black
-                                                    .withOpacity(0.25),
-                                                blurRadius: 10,
-                                                offset: Offset(4, 4))
-                                          ]),
-                                      children: <InlineSpan>[
-                                        TextSpan(
-                                            text: 'Zuhr',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                            ))
-                                      ])),
-                            ),
-                            Text.rich(// 12:08 PM
-                                TextSpan(
-                                    text: '12:08 ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xffF5F2F2),
-                                        fontSize: 28,
-                                        shadows: [
-                                          Shadow(
-                                              color: Colors.black
-                                                  .withOpacity(0.25),
-                                              blurRadius: 10,
-                                              offset: Offset(4, 4))
-                                        ]),
-                                    children: <InlineSpan>[
-                                  TextSpan(
-                                      text: 'PM',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 18))
-                                ])),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30.0),
-                              child: Text.rich(//Next : Asr
-                                  TextSpan(
-                                      text: 'Next : ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          color: Color(0xffF5F2F2),
-                                          shadows: [
-                                            Shadow(
-                                                color: Colors.black
-                                                    .withOpacity(0.25),
-                                                blurRadius: 10,
-                                                offset: Offset(4, 4))
-                                          ]),
-                                      children: <InlineSpan>[
-                                    TextSpan(
-                                        text: 'Asr',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                        ))
-                                  ])),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15.0),
-                              child: Text.rich(// 04:08 PM
-                                  TextSpan(
-                                      text: '04:08 ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xffF5F2F2),
-                                          fontSize: 21,
-                                          shadows: [
-                                            Shadow(
-                                                color: Colors.black
-                                                    .withOpacity(0.25),
-                                                blurRadius: 10,
-                                                offset: Offset(4, 4))
-                                          ]),
-                                      children: <InlineSpan>[
-                                    TextSpan(
-                                        text: 'PM',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w200,
-                                            fontSize: 11))
-                                  ])),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  // crossAxisAlignment: CrossAxisAlignment.end,
-
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 23, bottom: 15.0),
-                      child: Row(
-                        children: [
-                          // SvgPicture.asset('assets/icons/map-pin-white.svg',width: 15,),
-                          SvgPicture.asset(
-                            'assets/icons/map-pin-white.svg',
-                            width: 15,
-                          ),
-
-                          Text(
-                            'Kuala Terengganu',
-                            style: TextStyle(
-                                fontSize: 10, color: Color(0xffF5F2F2)),
-                          )
-                        ],
-                      ),
-                    ),
-                    // SizedBox(height: 38,),
-                    SvgPicture.asset('assets/icons/mosque-islam1.svg')
-                  ],
-                ),
-                SizedBox()
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              height: 50,
-              child: Center(
-                child: Text(
-                  'See Prayer Times',
-                  style: TextStyle(color: Colors.white, shadows: [
-                    Shadow(
-                        color: Colors.black.withOpacity(0.25),
-                        blurRadius: 10,
-                        offset: Offset(4, 4))
-                  ]),
-                ),
-              ),
-              decoration: BoxDecoration(
-                  color: Color(0xff4c787e),
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20))),
-            )
-          ],
-        ),
-      ),
     );
   }
 
@@ -492,6 +312,305 @@ class _HomePageState extends State<HomePage> {
                     TextSpan(
                         text: '24 October 2024', style: TextStyle(fontSize: 13))
                   ])),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class prayTimeWidget extends ConsumerWidget {
+   prayTimeWidget({super.key});
+
+  String city = 'loading...';
+
+  final _geolocator = geolocatorFinder();
+
+  void _getInititalInfo() async {
+    Position position = await _geolocator.getCurrentPosition();
+    Placemark placemark = await _geolocator.getAddressFromLatLng(position);
+    city = placemark.locality.toString();
+  }
+
+  @override
+  Widget build(BuildContext context, ref) {
+
+    double widgetWidth() => MediaQuery.of(context).size.width * 0.9;
+    _getInititalInfo();
+    final _waktuSolat = ref.watch(waktuSolatProvider);
+
+    String currentPrayerName = _waktuSolat.when(
+        data: (_waktuSolat) {
+          String current = _waktuSolat.determineCurrentPrayer(
+              PrayerTime(
+                  subh: _waktuSolat.subh,
+                  syuruk: _waktuSolat.syuruk,
+                  zuhr: _waktuSolat.zuhr,
+                  asr: _waktuSolat.asr,
+                  maghrib: _waktuSolat.maghrib,
+                  isha: _waktuSolat.isha,
+                  hijriDate: _waktuSolat.hijriDate,
+                  day: _waktuSolat.day));
+          return current;
+        },
+        error: (err, s) => 'error!',
+        loading: () => '..');
+    String nextPrayerTime = _waktuSolat.when(
+        data: (_waktuSolat){
+          String next = _waktuSolat.getNextPrayer(
+              PrayerTime(
+                  subh: _waktuSolat.subh,
+                  syuruk: _waktuSolat.syuruk,
+                  zuhr: _waktuSolat.zuhr,
+                  asr: _waktuSolat.asr,
+                  maghrib: _waktuSolat.maghrib,
+                  isha: _waktuSolat.isha,
+                  hijriDate: _waktuSolat.hijriDate,
+                  day: _waktuSolat.day));
+          return next;
+
+        },
+        error: (err, s) => 'error!',
+        loading: () => '..');
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/prayerTime');
+      },
+      child: Container(
+        height: 200,
+        width: widgetWidth(),
+        decoration: BoxDecoration(
+          // color: Colors.blue,
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff73ABA9),
+                Color(0xff628E8B),
+                Color(0xff203935).withOpacity(0.94)
+              ],
+            ),
+            borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 26.0),
+                              child: Text.rich(
+                                //Now Zuhr
+                                  textAlign: TextAlign.start,
+                                  TextSpan(
+                                      text: 'Now : ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w200,
+                                          color: Color(0xffF5F2F2),
+                                          shadows: [
+                                            Shadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.25),
+                                                blurRadius: 10,
+                                                offset: Offset(4, 4))
+                                          ]),
+                                      children: <InlineSpan>[
+                                        TextSpan(
+                                            text: currentPrayerName,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                            ))
+                                      ])),
+                            ),
+                            Text.rich(// 12:08 PM
+                                TextSpan(
+                                    text: _waktuSolat.when(
+                                        data: (_waktuSolat) {
+                                          String current =  _waktuSolat.onlyTime(_waktuSolat.getPrayerTime(PrayerTime(
+                                              subh: _waktuSolat.subh,
+                                              syuruk: _waktuSolat.syuruk,
+                                              zuhr: _waktuSolat.zuhr,
+                                              asr: _waktuSolat.asr,
+                                              maghrib: _waktuSolat.maghrib,
+                                              isha: _waktuSolat.isha,
+                                              hijriDate: _waktuSolat.hijriDate,
+                                              day: _waktuSolat.day), currentPrayerName))[0];
+                                          return current;
+                                        },
+                                        error: (err, s) => 'error',
+                                        loading: () => '00:00 am'),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xffF5F2F2),
+                                        fontSize: 28,
+                                        shadows: [
+                                          Shadow(
+                                              color: Colors.black
+                                                  .withOpacity(0.25),
+                                              blurRadius: 10,
+                                              offset: Offset(4, 4))
+                                        ]),
+                                    children: <InlineSpan>[
+                                      TextSpan(
+                                          text: ' ' + _waktuSolat.when(
+                                              data: (_waktuSolat) {
+                                                String current =  _waktuSolat.onlyTime(_waktuSolat.getPrayerTime(PrayerTime(
+                                                    subh: _waktuSolat.subh,
+                                                    syuruk: _waktuSolat.syuruk,
+                                                    zuhr: _waktuSolat.zuhr,
+                                                    asr: _waktuSolat.asr,
+                                                    maghrib: _waktuSolat.maghrib,
+                                                    isha: _waktuSolat.isha,
+                                                    hijriDate: _waktuSolat.hijriDate,
+                                                    day: _waktuSolat.day), currentPrayerName))[1];
+                                                return current;
+                                              },
+                                              error: (err, s) => 'error',
+                                              loading: () => '00:00 am'),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w200,
+                                              fontSize: 18))
+                                    ])),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 30.0),
+                              child: Text.rich(//Next : Asr
+                                  TextSpan(
+                                      text: 'Next : ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w200,
+                                          color: Color(0xffF5F2F2),
+                                          shadows: [
+                                            Shadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.25),
+                                                blurRadius: 10,
+                                                offset: Offset(4, 4))
+                                          ]),
+                                      children: <InlineSpan>[
+                                        TextSpan(
+                                            text: nextPrayerTime,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                            ))
+                                      ])),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 15.0),
+                              child: Text.rich(// 04:08 PM
+                                  TextSpan(
+                                      text: _waktuSolat.when(
+                                      data: (_waktuSolat) {
+                              String current =  _waktuSolat.onlyTime(_waktuSolat.getPrayerTime(PrayerTime(
+                              subh: _waktuSolat.subh,
+                              syuruk: _waktuSolat.syuruk,
+                              zuhr: _waktuSolat.zuhr,
+                              asr: _waktuSolat.asr,
+                              maghrib: _waktuSolat.maghrib,
+                              isha: _waktuSolat.isha,
+                              hijriDate: _waktuSolat.hijriDate,
+                              day: _waktuSolat.day), nextPrayerTime))[0];
+                              return current;
+                              },
+                                  error: (err, s) => 'error',
+                                  loading: () => '00:00 am'),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xffF5F2F2),
+                                          fontSize: 21,
+                                          shadows: [
+                                            Shadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.25),
+                                                blurRadius: 10,
+                                                offset: Offset(4, 4))
+                                          ]),
+                                      children: <InlineSpan>[
+                                        TextSpan(
+                                            text: ' '+ _waktuSolat.when(
+                                                data: (_waktuSolat) {
+                                                  String current =  _waktuSolat.onlyTime(_waktuSolat.getPrayerTime(PrayerTime(
+                                                      subh: _waktuSolat.subh,
+                                                      syuruk: _waktuSolat.syuruk,
+                                                      zuhr: _waktuSolat.zuhr,
+                                                      asr: _waktuSolat.asr,
+                                                      maghrib: _waktuSolat.maghrib,
+                                                      isha: _waktuSolat.isha,
+                                                      hijriDate: _waktuSolat.hijriDate,
+                                                      day: _waktuSolat.day), nextPrayerTime))[1];
+                                                  return current;
+                                                },
+                                                error: (err, s) => 'error',
+                                                loading: () => '00:00 am'),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w200,
+                                                fontSize: 11))
+                                      ])),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  // crossAxisAlignment: CrossAxisAlignment.end,
+
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 23, bottom: 15.0),
+                      child: Row(
+                        children: [
+                          // SvgPicture.asset('assets/icons/map-pin-white.svg',width: 15,),
+                          SvgPicture.asset(
+                            'assets/icons/map-pin-white.svg',
+                            width: 15,
+                          ),
+
+                          Text(
+                            city,
+                            style: TextStyle(
+                                fontSize: 10, color: Color(0xffF5F2F2)),
+                          )
+                        ],
+                      ),
+                    ),
+                    // SizedBox(height: 38,),
+                    SvgPicture.asset('assets/icons/mosque-islam1.svg')
+                  ],
+                ),
+                SizedBox()
+              ],
+            ),
+            Container(
+              width: double.infinity,
+              height: 50,
+              child: Center(
+                child: Text(
+                  'See Prayer Times',
+                  style: TextStyle(color: Colors.white, shadows: [
+                    Shadow(
+                        color: Colors.black.withOpacity(0.25),
+                        blurRadius: 10,
+                        offset: Offset(4, 4))
+                  ]),
+                ),
+              ),
+              decoration: BoxDecoration(
+                  color: Color(0xff4c787e),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20))),
             )
           ],
         ),
