@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    debugShowCheckedModeBanner: false, //test  theme: ThemeData(fontFamily: 'GoogleSans'),
+    debugShowCheckedModeBanner: false, //test  theme: ThemeData(f`ontFamily: 'GoogleSans'),
       theme: ThemeData(fontFamily: 'Poppins'),
       home: HomePage(),
       routes: {

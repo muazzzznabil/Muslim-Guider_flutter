@@ -12,19 +12,30 @@ import '../model/waktuSolat_model.dart';
 
 class PrayerTimeService {
 
-  final String zone = 'WLY01';
   final _geolocator = geolocatorFinder();
 
   Future<PrayerTime> getTodayPrayerTime() async {
+    String zone = 'WLY01';
+    Position position;
+    Placemark placemark;
 
-    Position position = await _geolocator.getCurrentPosition();
-    Placemark placemark = await _geolocator.getAddressFromLatLng(position);
+    if(await _geolocator.getLocationPermission()){
 
-    String  city = placemark.locality.toString();
+      position = await _geolocator.getCurrentPosition();
+      placemark = await _geolocator.getAddressFromLatLng(position);
 
-    final zone = _zoneCode(city);
-    print(city);
-    print(zone);
+      String  city = placemark.locality.toString();
+      zone = _zoneCode(city);
+      print(city);
+      print(zone);
+      print('--------------Seuccess------------------');
+    }else{
+       zone = 'WLY01';
+      print('----------------Error----------------');
+
+    }
+
+
     final response = await http.get(Uri.parse('https://api.waktusolat.app/v2/solat/$zone'));
     if (response.statusCode == 200) {
       final List<dynamic> prayers = jsonDecode(response.body)['prayers'];
@@ -48,7 +59,7 @@ class PrayerTimeService {
       throw Exception("Failed to load prayer times");
     }
     print('Failed to fetch prayer times with status code: ${response.statusCode}');
-    return Future.error('error fetching data');
+    return Future.error('error fetching data!');
   }
 }
 final waktuSolat_Provider = Provider<PrayerTimeService>((ref)=>PrayerTimeService());

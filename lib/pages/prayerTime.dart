@@ -23,20 +23,33 @@ class prayerTime extends ConsumerWidget {
 
   final _geolocator = geolocatorFinder();
 
-  void _getInititalInfo() async {
-    Position position = await _geolocator.getCurrentPosition();
-    Placemark placemark = await _geolocator.getAddressFromLatLng(position);
-    city = placemark.locality.toString();
+  void _getInititalInfo(BuildContext context) async {
+
+    Position position;
+    Placemark placemark;
+
+    if(await _geolocator.getLocationPermission()){
+      position = await _geolocator.getCurrentPosition();
+      placemark = await _geolocator.getAddressFromLatLng(position);
+      city = placemark.locality.toString();
+    }else{
+      city = 'Kuala Lumpur';
+      ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
+        content: Text('Unable to determine your location. Showing prayer times for Kuala Lumpur.'),
+        behavior: SnackBarBehavior.floating,));
+    }
+
+
   }
 
   @override
   Widget build(BuildContext context, ref) {
-    _getInititalInfo();
+    _getInititalInfo(context);
     final _waktuSolat = ref.watch(waktuSolatProvider);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Color(0xff67987c),
-        appBar: appBar(context),
+        appBar: appBar(context,ref),
         body: RefreshIndicator(
           onRefresh: () async {
             ref.refresh(waktuSolatProvider);
@@ -446,11 +459,12 @@ class prayerTime extends ConsumerWidget {
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
+                      padding: const EdgeInsets.only(bottom: 3.0),
                       child: Text(
-                        'Current Prayer',
+                        'Current Prayer :',
                         style: TextStyle(
                             color: white,
                             fontSize: 13,
@@ -459,12 +473,12 @@ class prayerTime extends ConsumerWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 60.0),
+                      padding: const EdgeInsets.only(bottom:  5.0),
                       child: Text(
                         currentPrayerName,
                         style: TextStyle(
                             color: white,
-                            fontSize: 25,
+                            fontSize: 20,
                             height: 1.0,
                             shadows: [basicShadow]),
                       ),
@@ -476,7 +490,7 @@ class prayerTime extends ConsumerWidget {
                         style: TextStyle(
                             color: white,
                             fontSize: 13,
-                            height: 2.2,
+                            height: 2.3,
                             shadows: [basicShadow]),
                       ),
                     ),
@@ -501,33 +515,36 @@ class prayerTime extends ConsumerWidget {
                       ).createShader(
                         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
                       ),
-                      child: Text(
-                        _waktuSolat.when(
-                            data: (_waktuSolat) {
-                              String current = _waktuSolat.getPrayerTime(PrayerTime(
-                                  subh: _waktuSolat.subh,
-                                  syuruk: _waktuSolat.syuruk,
-                                  zuhr: _waktuSolat.zuhr,
-                                  asr: _waktuSolat.asr,
-                                  maghrib: _waktuSolat.maghrib,
-                                  isha: _waktuSolat.isha,
-                                  hijriDate: _waktuSolat.hijriDate,
-                                  day: _waktuSolat.day), currentPrayerName);
-                              return current;
-                            },
-                            error: (err, s) => 'error',
-                            loading: () => '00:00 am'),
-                        style:  TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600,
-                          color: Colors
-                              .black, // Use a base color (white is recommended)
-                          // shadows: [
-                          //   Shadow(
-                          //       color: Colors.black.withOpacity(0.25),
-                          //       blurRadius: 10,
-                          //       offset: Offset(4, 4))
-                          // ]
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 5.9),
+                        child: Text(
+                          _waktuSolat.when(
+                              data: (_waktuSolat) {
+                                String current = _waktuSolat.getPrayerTime(PrayerTime(
+                                    subh: _waktuSolat.subh,
+                                    syuruk: _waktuSolat.syuruk,
+                                    zuhr: _waktuSolat.zuhr,
+                                    asr: _waktuSolat.asr,
+                                    maghrib: _waktuSolat.maghrib,
+                                    isha: _waktuSolat.isha,
+                                    hijriDate: _waktuSolat.hijriDate,
+                                    day: _waktuSolat.day), currentPrayerName);
+                                return current;
+                              },
+                              error: (err, s) => '00:00 am',
+                              loading: () => '00:00 am'),
+                          style:  TextStyle(
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600,
+                            color: Colors
+                                .black, // Use a base color (white is recommended)
+                            // shadows: [
+                            //   Shadow(
+                            //       color: Colors.black.withOpacity(0.25),
+                            //       blurRadius: 10,
+                            //       offset: Offset(4, 4))
+                            // ]
+                          ),
                         ),
                       ),
                     ),
@@ -638,7 +655,7 @@ class prayerTime extends ConsumerWidget {
     );
   }
 
-  AppBar appBar(BuildContext context) {
+  AppBar appBar(BuildContext context, WidgetRef ref) {
     return AppBar(
       iconTheme: IconThemeData(color: white),
       backgroundColor: Colors.transparent,
@@ -660,11 +677,13 @@ class prayerTime extends ConsumerWidget {
           padding: const EdgeInsets.only(right: 20.0),
           child: IconButton(
           onPressed: (){
-            showSearch(
-            context: context,
-            delegate: CustomSearchDelegate(),);
+            // showSearch(
+            // context: context,
+            // delegate: CustomSearchDelegate(),); //use for search
+            //refresh:
+            ref.refresh(waktuSolatProvider);
             },
-          icon :  Icon(Icons.search_rounded,size: 28,color: white,),
+          icon :  Icon(Icons.refresh_rounded,size: 28,color: white,),
         ),
         )
       ],

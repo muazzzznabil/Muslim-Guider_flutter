@@ -95,6 +95,22 @@ class PrayerTime {
     return DateTime(now.year, now.month, now.day, hour, minute);
   }
 
+  DateTime _parsePrayerTime24hour(String prayerTime) {
+    final now = DateTime.now();
+    final timeParts = prayerTime.split(' ');
+    final time = timeParts[0].split(':');
+    int hour = int.parse(time[0]);
+    int minute = int.parse(time[1]);
+
+    if (timeParts[1] == 'p.m.' && hour != 12) {
+      hour += 12;
+    } else if (timeParts[1] == 'a.m.' && hour == 12) {
+      hour = 0;
+    }
+
+    return DateTime(now.year, now.month, now.day, hour, minute);
+  }
+
   String getPrayerTime(PrayerTime prayerTime, String prayerName) {
     // Return the time string for a given prayer name
     switch (prayerName.toLowerCase()) {
@@ -149,20 +165,18 @@ class PrayerTime {
 
   }
 
-  String calculateTimeLeft(String nextPrayerTime,PrayerTime pray) {
-    DateTime now = DateTime.now();
-    print('------------------now-----------------------');
-    print(now);
-    print('------------------conv--------');
+
+
+  String calculateTimeLeft(String nextPrayerTime, PrayerTime pray) {
+    DateTime now= DateTime.now();
     DateTime prayerTime = _parsePrayerTime(getPrayerTime(pray, nextPrayerTime));
-    print(prayerTime);
-    // DateTime prayerTime = DateTime.parse(prayTime);
 
-    Duration diff =  prayerTime.difference(now); //bug here where the time need to be time left not time from
-
-    if (diff.isNegative) {
-      diff = now.difference(prayerTime);
+    // Check if prayerTime is on the next day
+    if (prayerTime.isBefore(now)) {
+      prayerTime = prayerTime.add(Duration(days: 1));
     }
+
+    Duration diff = prayerTime.difference(now);
 
     int hours = diff.inHours;
     int minutes = diff.inMinutes % 60;

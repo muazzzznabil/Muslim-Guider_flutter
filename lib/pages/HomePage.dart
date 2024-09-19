@@ -327,17 +327,27 @@ class prayTimeWidget extends ConsumerWidget {
 
   final _geolocator = geolocatorFinder();
 
-  void _getInititalInfo() async {
-    Position position = await _geolocator.getCurrentPosition();
-    Placemark placemark = await _geolocator.getAddressFromLatLng(position);
-    city = placemark.locality.toString();
+  void _getInititalInfo(BuildContext context) async {
+    Position position;
+    Placemark placemark;
+
+    if(await _geolocator.getLocationPermission()){
+      position = await _geolocator.getCurrentPosition();
+      placemark = await _geolocator.getAddressFromLatLng(position);
+      city = placemark.locality.toString();
+    }else{
+      city = 'Kuala Lumpur';
+      ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
+        content: Text('Unable to determine your location. Showing prayer times for Kuala Lumpur.'),
+        behavior: SnackBarBehavior.floating,));
+    }
   }
 
   @override
   Widget build(BuildContext context, ref) {
 
     double widgetWidth() => MediaQuery.of(context).size.width * 0.9;
-    _getInititalInfo();
+    _getInititalInfo(context);
     final _waktuSolat = ref.watch(waktuSolatProvider);
 
     String currentPrayerName = _waktuSolat.when(
@@ -406,7 +416,7 @@ class prayTimeWidget extends ConsumerWidget {
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
                           // mainAxisAlignment: MainAxisAlignment.start,
-
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(right: 26.0),
@@ -449,7 +459,7 @@ class prayTimeWidget extends ConsumerWidget {
                                           return current;
                                         },
                                         error: (err, s) => 'error',
-                                        loading: () => '00:00 am'),
+                                        loading: () => '00:00'),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Color(0xffF5F2F2),
@@ -477,7 +487,7 @@ class prayTimeWidget extends ConsumerWidget {
                                                 return current;
                                               },
                                               error: (err, s) => 'error',
-                                              loading: () => '00:00 am'),
+                                              loading: () => ''),
                                           style: TextStyle(
                                               fontWeight: FontWeight.w200,
                                               fontSize: 18))
@@ -523,7 +533,7 @@ class prayTimeWidget extends ConsumerWidget {
                               return current;
                               },
                                   error: (err, s) => 'error',
-                                  loading: () => '00:00 am'),
+                                  loading: () => '00:00'),
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Color(0xffF5F2F2),
@@ -551,7 +561,7 @@ class prayTimeWidget extends ConsumerWidget {
                                                   return current;
                                                 },
                                                 error: (err, s) => 'error',
-                                                loading: () => '00:00 am'),
+                                                loading: () => ''),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w200,
                                                 fontSize: 11))
