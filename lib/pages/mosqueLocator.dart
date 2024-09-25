@@ -73,16 +73,22 @@ class mosqueLocator extends ConsumerWidget {
                             color: Colors.green,
                             elevation: 4,
                             margin: const EdgeInsets.symmetric(vertical: 10),
-                            child: ListTile(
-                              title: Text(
-                                mosque.name, // Use the new variable here
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
+                            child:
+                                ListTile(
+                                  minTileHeight: 100,
+                                  leading: SvgPicture.asset(
+                                    'assets/icons/mosque-islam1.svg',
+                                    width: 50,
+                                  ),
+                                  title: Text(
+                                    mosque.name, // Use the new variable here
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
                           ),
                         );
                       },
@@ -144,7 +150,6 @@ class mosqueLocator extends ConsumerWidget {
       ),
     );
   }
-
   AppBar appBar() {
     return AppBar(
       backgroundColor: Colors.transparent,
