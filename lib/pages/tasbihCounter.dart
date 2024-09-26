@@ -115,7 +115,7 @@ class TasbihCounter extends ConsumerWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       color: Color(0xffffffff),
-      height: screenHeight * 0.4487,
+      height: screenHeight * 0.4,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -213,64 +213,67 @@ class TasbihCounter extends ConsumerWidget {
 }
 
 
-
-
-class _Slider extends StatefulWidget {
-  const _Slider();
+class _Slider extends ConsumerStatefulWidget {
+  const _Slider({Key? key}) : super(key: key);
 
   @override
-  State<_Slider> createState() => __SliderState();
+  ConsumerState<_Slider> createState() => __SliderState();
 }
 
-class __SliderState extends State<_Slider> {
-  double progress = 0.5;
+class __SliderState extends ConsumerState<_Slider> {
+  double progress = 0;
   int goalVal = 0;
 
   Shadow basicShadow = Shadow(
       color: Colors.black.withOpacity(0.25),
       blurRadius: 10,
-      offset: Offset(4, 4));
+      offset: const Offset(4, 4));
 
-  void setValue(int val) {
-    val = this.goalVal;
+  @override
+  void initState(){
+    super.initState();
+
+    final currentGoal = ref.read(tasbihProvider.notifier).goal;
+    setState(() {
+      progress = currentGoal / 1000;
+    });
   }
-
-  int getValue() => this.goalVal;
 
   @override
   Widget build(BuildContext context) {
-    int valSlide = 0;
-
-    setState(() {
-      valSlide = getValue();
-    });
+    double valSlide = 0;
 
     return SizedBox(
       width: 300,
       height: 100,
       child: Column(
         children: [
+          // Slider to set the goal value dynamically
           Slider(
             value: progress,
             onChanged: (value) {
               setState(() {
+                // double currentGoal = ref.read(tasbihProvider.notifier).goal/1000;
                 progress = value;
+
                 double progressVal = value * 1000;
                 goalVal = progressVal.round();
-                TasbihProvider().setGoal(progressVal.round());
+
+                ref.read(tasbihProvider.notifier).setGoal(goalVal);
               });
               double progressVal = value * 1000;
-              print(progressVal.round());
+                print('Goal set to: ${progressVal.round()}');
             },
           ),
 
           Text(
-              '$goalVal',
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.w500,
-                shadows: [basicShadow]
-              ),
+
+            ('${(progress*1000).round()}'),
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.w500,
+              shadows: [basicShadow],
+            ),
           )
         ],
       ),

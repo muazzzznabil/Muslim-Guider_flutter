@@ -18,21 +18,21 @@ class TasbihProvider extends StateNotifier<List<TasbihRecord>> {
     state = [...state];
       if(_currentCount == _goal){
         Vibration.vibrate(duration: 1000);
-        ScaffoldMessenger.of(context!).showSnackBar(const  SnackBar(content: Text('You have achieved your goal !!'),behavior: SnackBarBehavior.floating,));
+        ScaffoldMessenger.of(context).showSnackBar(const  SnackBar
+          (content: Text('You have achieved your goal !!'),
+          behavior: SnackBarBehavior.floating,));
       }else{
         Vibration.vibrate(duration: 20);
         print('--------------current goal : $goal----------');
       }
-
   }
 
   void setGoal(int newGoal) {
     _goal = newGoal;
-    print('------new GOALLLL-------- $_goal');
     _currentCount = 0;
+    print('------new GOAL set to $_goal');
     state = [...state];
   }
-
 
 
   void resetCounter() {
