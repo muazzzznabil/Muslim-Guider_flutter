@@ -5,13 +5,15 @@ class MosqueV2{
   final double lat;
   final double lng;
   final String fq;
+  double? distance;
 
   MosqueV2({
     required this.name,
     required this.detail,
     required this.lat,
     required this.lng,
-    required this.fq
+    required this.fq,
+    this.distance
   });
 
   // factory MosqueV2.fromJson(Map<String, dynamic> json){

@@ -34,7 +34,7 @@ class MosqueLocatorApi {
   Future<List<MosqueLocator>> getMosques() async {
     final String endpoint = 'https://masjid.onrender.com/near_by_mosque?coordinate=$lat,$long&accuracy=$accuracy';
     Response response = await get(Uri.parse(endpoint));
-print('SHOUDL IN HERE---------------------------------');
+    print('SHOUDL IN HERE---------------------------------');
     // Check response status
     if (response.statusCode == 200) {
       print('SUCESS_--------------------------------------------');

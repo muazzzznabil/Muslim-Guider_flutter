@@ -17,6 +17,8 @@ class Mosquev2service{
 
     String lat = position.latitude.toString();
     String long = position.longitude.toString();
+    double latdis = double.parse(lat);
+    double lngdis = double.parse(long);
     print('----------------------------------------------------------------------------------');
     print(lat);
     print(long);
@@ -34,19 +36,32 @@ class Mosquev2service{
       print('SUCCESS--------------------------------------------');
       // Assuming the API returns a JSON array of mosque objects
       final List<dynamic> result = jsonDecode(response.body)['features'];
-      return result.map((e) => MosqueV2.fromJson(e)).toList();
+      // return result.map((e) => MosqueV2.fromJson(e)).toList();
+
+      List<MosqueV2> mosques = result.map((e) => MosqueV2.fromJson(e)).toList();
+
+      for (MosqueV2 mosque in mosques) {
+        double distance = calculateDistance(latdis, lngdis, mosque.lat, mosque.lng);
+        mosque.distance = distance; // Set distance
+      }
+      return mosques;
+
     } else {
       print('errorrrrr');
       throw Exception(response.reasonPhrase);
     }
   }
 
+  double calculateDistance(double startLat, double startLong, double targetLat, double targetLong) {
+    return Geolocator.distanceBetween(startLat, startLong, targetLat, targetLong);
+  }
+
   String getMap(){
     String name = '';
-
-
     return name;
   }
+
+
 
 
 }
