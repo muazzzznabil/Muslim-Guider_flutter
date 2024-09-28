@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_popup/flutter_popup.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:muslim_guider_v1/dataProvider/counter_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muslim_guider_v1/pages/TasbihRecords.dart';
-import 'package:flutter_popup/flutter_popup.dart';
-import '../model/tasbih_model.dart';
 
 class TasbihCounter extends ConsumerWidget {
   @override

@@ -1,20 +1,12 @@
-import 'dart:ui';
-
-
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:muslim_guider_v1/pages/mosqueLocator.dart';
-import 'package:muslim_guider_v1/pages/prayerTime.dart';
 import 'package:muslim_guider_v1/pages/setting.dart';
-import 'package:muslim_guider_v1/pages/tasbihCounter.dart';
 
 import '../dataProvider/waktu_solat_provider.dart';
 import '../model/waktuSolat_model.dart';
@@ -47,6 +39,12 @@ class _HomePageState extends State<HomePage> {
   ];
   int _pageIndex = 0;
 
+  @override
+  void initState() {
+    super.initState();
+    geolocatorFinder gf = new geolocatorFinder();
+    gf.handleLocationPermission(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +85,7 @@ class _HomePageState extends State<HomePage> {
             tasbihCounterWidget(),
             SizedBox(height: 30,),
             mosqueLocatorWidget(),
+
           ],
         ),
       ],

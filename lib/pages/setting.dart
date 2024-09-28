@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:muslim_guider_v1/template/botNavBar.dart';
 import 'package:muslim_guider_v1/test/location_test.dart';
 
 class setting extends StatelessWidget {

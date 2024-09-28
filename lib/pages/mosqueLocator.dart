@@ -5,11 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:muslim_guider_v1/services/geolocator.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// Import your provider
-import '../dataProvider/data_provider.dart';
 import '../dataProvider/mosque_v2_provider.dart';
 
 

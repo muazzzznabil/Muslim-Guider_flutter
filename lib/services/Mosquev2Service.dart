@@ -1,10 +1,10 @@
 import 'dart:convert';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:muslim_guider_v1/model/mosquev2_model.dart';
-import 'package:riverpod/riverpod.dart';
-import '../model/mosque_model.dart';
 import 'package:muslim_guider_v1/services/geolocator.dart';
+import 'package:riverpod/riverpod.dart';
 
 
 class Mosquev2service{

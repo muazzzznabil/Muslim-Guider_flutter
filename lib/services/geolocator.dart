@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class geolocatorFinder{
@@ -52,7 +52,7 @@ class geolocatorFinder{
     return true;
   }
 
-  Future<bool> getLocationPermission() async{ //return only boolean value for checking the permission
+   Future<bool> getLocationPermission() async{ //return only boolean value for checking the permission
     bool serviceEnabled;
     LocationPermission permission;
 

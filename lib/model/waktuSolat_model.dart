@@ -1,8 +1,4 @@
-import 'dart:math';
 
-import 'package:jhijri/jhijri.dart';
-
-import '../pages/prayerTime.dart';
 
 class PrayerTime {
   final String subh;

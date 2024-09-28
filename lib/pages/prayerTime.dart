@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,7 +5,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:muslim_guider_v1/model/cityList.dart';
 import 'package:muslim_guider_v1/model/waktuSolat_model.dart';
-import 'package:muslim_guider_v1/services/pray_time_service.dart';
+import 'package:muslim_guider_v1/services/ip_add_finderAPI.dart';
 
 import '../dataProvider/waktu_solat_provider.dart';
 import '../services/geolocator.dart';
@@ -23,10 +22,13 @@ class prayerTime extends ConsumerWidget {
 
   final _geolocator = geolocatorFinder();
 
+
   void _getInititalInfo(BuildContext context) async {
 
     Position position;
     Placemark placemark;
+
+    _geolocator.handleLocationPermission(context);
 
     if(await _geolocator.getLocationPermission()){
       position = await _geolocator.getCurrentPosition();
@@ -34,13 +36,13 @@ class prayerTime extends ConsumerWidget {
       city = placemark.locality.toString();
     }else{
       city = 'Kuala Lumpur';
+      ip_location.getIpAddresses();
       ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
         content: Text('Unable to determine your location. Showing prayer times for Kuala Lumpur.'),
         behavior: SnackBarBehavior.floating,));
     }
-
-
   }
+
 
   @override
   Widget build(BuildContext context, ref) {
@@ -677,11 +679,11 @@ class prayerTime extends ConsumerWidget {
           padding: const EdgeInsets.only(right: 20.0),
           child: IconButton(
           onPressed: (){
-            // showSearch(
-            // context: context,
-            // delegate: CustomSearchDelegate(),); //use for search
-            //refresh:
-            ref.refresh(waktuSolatProvider);
+            showSearch(
+            context: context,
+            delegate: CustomSearchDelegate(),);
+            // refresh:
+            // ref.refresh(waktuSolatProvider);
             },
           icon :  Icon(Icons.refresh_rounded,size: 28,color: white,),
         ),
@@ -689,7 +691,6 @@ class prayerTime extends ConsumerWidget {
       ],
     );
   }
-
 }
 
 class CustomSearchDelegate extends SearchDelegate{

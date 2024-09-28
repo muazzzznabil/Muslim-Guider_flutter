@@ -22,8 +22,10 @@
 //   //Create provider to share data
 //   final mosqueProvider = Provider<Mosquelocatorapi>((ref)=>Mosquelocatorapi());
 import 'dart:convert';
+
 import 'package:http/http.dart';
 import 'package:riverpod/riverpod.dart';
+
 import '../model/mosque_model.dart';
 
 class MosqueLocatorApi {
