@@ -18,7 +18,12 @@ Future<void> _launchUrlDin() async {
 
 
 class contactUs extends StatelessWidget {
-  const contactUs({super.key});
+   contactUs({super.key});
+
+   Shadow basicShadow = Shadow(
+       color: Colors.black.withOpacity(0.25),
+       blurRadius: 10,
+       offset: Offset(4, 4));
 
   @override
   Widget build(BuildContext context) {
@@ -271,6 +276,7 @@ class contactUs extends StatelessWidget {
           fontWeight: FontWeight.w500,
           fontSize: 24,
           color: Color(0xff000000),
+          shadows: [basicShadow]
         ),
       ),
     );

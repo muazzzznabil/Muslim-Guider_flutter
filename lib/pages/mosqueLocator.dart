@@ -21,7 +21,7 @@ class mosqueLocator extends ConsumerWidget {
     Placemark placemark = await _geolocator.getAddressFromLatLng(position);
     city = placemark.locality.toString();
   }
-
+  bool errorTrue = true;
 
 
   @override
@@ -99,7 +99,29 @@ class mosqueLocator extends ConsumerWidget {
                         ),
                       );
                     },
-                    error: (err, s) => Text(err.toString()),
+                    error: (err, s) => Column(
+
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.bounceOut,
+                          height:  errorTrue ? 110 : 0,
+                          child: Icon(
+                              Icons.wrong_location,size: 100,color: Color(
+                              0xffae1d1d),
+
+                          ),
+                        ),
+                        Text('Location\nDisabled',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white70
+                        ),)
+                      ],
+                    ),
                     loading: () => const Center(
                       child: CircularProgressIndicator(),
                     ),
